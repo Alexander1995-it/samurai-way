@@ -1,0 +1,35 @@
+.navbar__block {
+
+}
+
+.navbar__content {
+    padding: 10px 0;
+    height: 100vh;
+    background-color: cornflowerblue;
+
+}
+
+.navbar__text {
+    padding-left: 50px ;
+    padding-right: 50px ;
+    font-size: 30px;
+    font-family: "Noto Color Emoji" ;
+    color: midnightblue;
+    margin-bottom: 10px;
+
+}
+
+
+.navbar__text:hover {
+    cursor: pointer;
+    background-color: olive;
+
+}
+
+.navbar__link {
+    text-decoration: none;
+}
+
+.navbar__activeLink div {
+    color: gold;
+}

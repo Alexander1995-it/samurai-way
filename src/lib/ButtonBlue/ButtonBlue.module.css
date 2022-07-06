@@ -1,0 +1,11 @@
+.btn__block {
+    display: inline-block;
+    border: 1px solid midnightblue;
+    background-color: blue;
+    cursor: pointer;
+    padding: 5px;
+    color: ghostwhite;
+    font-size: 20px;
+    font-family: "JetBrains Mono";
+
+}

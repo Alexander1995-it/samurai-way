@@ -1,0 +1,30 @@
+.profileInfo__block {
+
+}
+.profileInfo__name {
+  margin-bottom: 7px;
+}
+
+.profileInfo__status {
+
+}
+
+.profileInfo__name__label {
+    font-size: 20px;
+    font-family: "JetBrains Mono";
+}
+
+.profileInfo__status__label {
+    font-size: 20px;
+    font-family: "JetBrains Mono";
+}
+
+.profileInfo__name__text {
+    font-size: 20px;
+    font-family: Consolas;
+}
+
+.profileInfo__status__text {
+    font-size: 20px;
+    font-family: Gadugi;
+}

@@ -5,35 +5,13 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from './components/Profile/Profile'
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-
-export type MyProfileType = {
-    id: number,
-    name: string,
-    status: string,
-    ava: any
-}
-export type MyPostType = {
-    id: number,
-    post: string,
-    likes: number
-}
-
-export type ProfilePageType = {
-    myProfile: MyProfileType
-    myPost: Array<MyPostType>
-}
-
-export type InitialStateType = {
-    profilePage: ProfilePageType
-}
-
-export type RootStatePropsType = {
-    initialState: InitialStateType
-}
+import state from './state/state'
 
 
+function App() {
 
-function App(props: RootStatePropsType) {
+    let profile = state.profilePage
+    let dialogs = state.dialogsPage
 
     return (
         <BrowserRouter>
@@ -43,8 +21,8 @@ function App(props: RootStatePropsType) {
                     <div className='app-main__wrapper'>
                         <Navbar/>
                         <div className='app-main__content'>
-                            <Route path='/profile' render={() => <Profile profile={props.initialState.profilePage}/>}/>
-                            <Route path='/dialogs' component={Dialogs}/>
+                            <Route path='/profile' render={() => <Profile profile={profile}/>}/>
+                            <Route path='/dialogs' render={() => <Dialogs dialogs={dialogs}/>}/>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,22 @@
+.dialogs__wrapper {
+    margin: 20px 0 0 20px;
+}
+
+.name__block {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+
+}
+
+.link__item {
+    text-decoration: none;
+}
+
+.dialog__block {
+
+}
+
+.name__item {
+    margin-top: 6px;
+}

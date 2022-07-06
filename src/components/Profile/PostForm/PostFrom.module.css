@@ -1,0 +1,20 @@
+.postForm__block {
+    margin-bottom: 20px;
+    display: flex;
+}
+.postForm__title {
+    font-size: 20px;
+    font-weight: bolder;
+    color: midnightblue;
+    margin-right: 10px;
+
+}
+
+.input__block {
+    margin-right: 10px;
+}
+
+.btn__block {
+
+
+}
