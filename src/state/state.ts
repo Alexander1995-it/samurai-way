@@ -1,4 +1,5 @@
 import ava from "../images/IMG_social-network.jpg";
+import {rerenderTree} from "../rerender";
 
 export type MyProfileType = {
     id: number,
@@ -13,6 +14,7 @@ export type MyPostType = {
 }
 
 export type ProfilePageType = {
+    messagePost: string
     myProfile: MyProfileType
     myPost: Array<MyPostType>
 }
@@ -31,8 +33,23 @@ type RootState = {
     dialogsPage: DialogsPageType[]
 }
 
+export const addPost = (post: string) => {
+    let newPost: MyPostType = {
+        id: 4,
+        post,
+        likes: 0
+    }
+    state.profilePage.myPost.unshift(newPost)
+    rerenderTree()
+}
+export const changeMessagePost = (postText: string) => {
+    state.profilePage.messagePost = postText
+    rerenderTree()
+}
+
 const state: RootState = {
     profilePage: {
+        messagePost: '',
         myProfile: {
             id: 1,
             name: 'Alexander',

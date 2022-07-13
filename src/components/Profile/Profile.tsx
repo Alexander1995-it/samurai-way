@@ -13,7 +13,10 @@ const Profile = (props: ProfilePropsType) => {
     return (
         <div className={style.profile__block}>
             <MyProfileInfo myProfile={props.profile.myProfile}/>
-            <MyPosts myPosts={props.profile.myPost}/>
+            <MyPosts
+                messagePost={props.profile.messagePost}
+                myPosts={props.profile.myPost}
+            />
         </div>
     );
 };

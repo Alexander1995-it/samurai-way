@@ -1,19 +1,35 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './PostFrom.module.css'
 import ButtonBlue from "../../../lib/ButtonBlue/ButtonBlue";
-import Input from "../../../lib/Input/Input";
+import {addPost, changeMessagePost} from "../../../state/state";
 
-const PostForm = () => {
+type PostFormPropsType = {
+    messagePost: string
+}
+
+const PostForm = (props: PostFormPropsType) => {
+
+
     const onClickAddPostHandler = () => {
-        console.log('add')
+        addPost(props.messagePost)
+
+
     }
+    const onChangePostHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        changeMessagePost(e.currentTarget.value)
+    }
+
     return (
         <div className={s.postForm__block}>
             <div className={s.postForm__title}>
                 Add post:
             </div>
             <div className={s.input__block}>
-                <Input value={''} placeholder={'Add post'}/>
+                <input
+                    onChange={onChangePostHandler}
+                    value={props.messagePost}
+                />
+                {/*<Input ref={newPostAdd}  placeholder={'Add post'}/>*/}
             </div>
             <div className={s.btn__block}>
                 <ButtonBlue onClick={onClickAddPostHandler}>Add post</ButtonBlue>

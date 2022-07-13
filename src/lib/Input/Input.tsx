@@ -2,15 +2,16 @@ import React from 'react';
 import s from './Input.module.css'
 
 type InputPropsType = {
-   value: string
+    value?: string
     placeholder?: string
+    ref: any
 
 }
 
 const Input = (props: InputPropsType) => {
     return (
         <div className={s.input__block}>
-            <input placeholder={props.placeholder}  value={props.value}/>
+            <input ref={props.ref} placeholder={props.placeholder} />
         </div>
     );
 };

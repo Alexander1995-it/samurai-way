@@ -5,6 +5,7 @@ import PostForm from "../PostForm/PostForm";
 import {MyPostType} from "../../../state/state";
 
 type MyPostsPropsType = {
+    messagePost: string
     myPosts: MyPostType[]
 }
 
@@ -12,7 +13,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     return (
         <div className={style.myPosts__block}>
-            <PostForm/>
+            <PostForm messagePost={props.messagePost}/>
             <div className={style.myPosts__title}>
                 My posts:
             </div>
