@@ -5,13 +5,13 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from './components/Profile/Profile'
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import state from './state/state'
+import {store} from "./state/state";
 
 
 function App() {
 
-    let profile = state.profilePage
-    let dialogs = state.dialogsPage
+    let profile = store._state.profilePage
+    let dialogs = store._state.dialogsPage
 
     return (
         <BrowserRouter>

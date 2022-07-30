@@ -8,9 +8,9 @@ type PostPropsType = {
 const Post = (props: PostPropsType) => {
     return (
         <div className={style.post__block}>
-           <div className={style.post__text}>
-               <span>{props.post}</span>
-           </div>
+            <div className={style.post__text}>
+                <span>{props.post}</span>
+            </div>
             <div>
                 <span>Likes</span>
                 <span>{props.likes}</span>
