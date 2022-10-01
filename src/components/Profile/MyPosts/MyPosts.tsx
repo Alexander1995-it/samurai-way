@@ -7,13 +7,16 @@ import {MyPostType} from "../../../state/state";
 type MyPostsPropsType = {
     messagePost: string
     myPosts: MyPostType[]
+    addPost: (post: string) => void
+    changePostText: (text: string) => void
+
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
 
     return (
         <div className={style.myPosts__block}>
-            <PostForm messagePost={props.messagePost}/>
+            <PostForm changePostText={props.changePostText} messagePost={props.messagePost}  addPost={props.addPost} />
             <div className={style.myPosts__title}>
                 My posts:
             </div>

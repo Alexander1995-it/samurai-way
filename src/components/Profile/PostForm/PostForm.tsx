@@ -1,21 +1,23 @@
 import React, {ChangeEvent} from 'react';
 import s from './PostFrom.module.css'
 import ButtonBlue from "../../../lib/ButtonBlue/ButtonBlue";
-import {store, changeMessagePostAC, addPostAC} from "../../../state/state";
 
 
 type PostFormPropsType = {
     messagePost: string
+    addPost: (post: string) => void
+    changePostText: (text: string) => void
 }
 
 const PostForm = (props: PostFormPropsType) => {
 
 
     const onClickAddPostHandler = () => {
-        store.dispatch(addPostAC(props.messagePost))
+        props.addPost(props.messagePost)
+
     }
     const onChangePostHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        store.dispatch(changeMessagePostAC(e.currentTarget.value))
+       props.changePostText(e.currentTarget.value)
     }
 
     return (
@@ -28,7 +30,6 @@ const PostForm = (props: PostFormPropsType) => {
                     onChange={onChangePostHandler}
                     value={props.messagePost}
                 />
-                {/*<Input ref={newPostAdd}  placeholder={'Add post'}/>*/}
             </div>
             <div className={s.btn__block}>
                 <ButtonBlue onClick={onClickAddPostHandler}>Add post</ButtonBlue>
