@@ -1,4 +1,6 @@
 import React from 'react';
+import {authMeAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 export type InitialStateAuthReducerType = typeof initialState
 
@@ -25,4 +27,14 @@ export const authReducer = (state: InitialStateAuthReducerType = initialState, a
 
 export type GetAuthACType = ReturnType<typeof getAuth>
 export const getAuth = (payload: any) => ({type: "GET_AUTH", payload}) as const
+
+
+export const setAuthMeTC = () => (dispatch: Dispatch) => {
+    authMeAPI.getAuthMe()
+        .then (response => {
+            if (response.data.resultCode === 0) {
+               dispatch (getAuth (response.data.data))
+            }
+        })
+}
 

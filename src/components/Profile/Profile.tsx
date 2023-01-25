@@ -9,7 +9,7 @@ type ProfilePropsType = CommonProfileContainerPropsType
 const Profile = (props: ProfilePropsType) => {
     return (
         <div className={style.profile__block}>
-            <MyProfileInfo profile={props.profilePage.profile}/>
+            <MyProfileInfo profilePage={props.profilePage}/>
             <MyPosts
                 messagePost={props.profilePage.textPost}
                 myPosts={props.profilePage.myPost}

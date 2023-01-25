@@ -1,13 +1,16 @@
 .profileInfo__block {
 
 }
+
 .profileInfo__name {
-  margin-bottom: 7px;
+    margin-bottom: 5px;
 }
 
 .profileInfo__status {
-
+    display: flex;
+    align-items: center;
 }
+
 
 .profileInfo__name__label {
     font-size: 20px;
@@ -27,4 +30,5 @@
 .profileInfo__status__text {
     font-size: 20px;
     font-family: Gadugi;
+    margin-right: 5px;
 }

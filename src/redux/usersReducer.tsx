@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 export type UserType = { id: number, followed: boolean, name: string, status: string, photos: { small: string, large: string } }
 
 export type InitialStateUsersReducerType = {
@@ -6,6 +9,7 @@ export type InitialStateUsersReducerType = {
     pageSize: number
     currentPage: number
     isLoading: boolean
+    followingInProgress: Number[]
 
 }
 
@@ -13,8 +17,9 @@ const initialState = {
     users: [],
     totalCount: 120,
     pageSize: 20,
-    currentPage: 4,
-    isLoading: false
+    currentPage: 1,
+    isLoading: false,
+    followingInProgress: []
 }
 
 type UsersReducerActionType =
@@ -23,7 +28,8 @@ type UsersReducerActionType =
     SetUsersType |
     SetCurrentPageACType |
     SetTotalCountACType |
-    SetLoadingACType
+    SetLoadingACType |
+    AddIdInFollowingProgressType
 
 
 export const usersReducer = (state: InitialStateUsersReducerType = initialState, action: UsersReducerActionType) => {
@@ -46,6 +52,12 @@ export const usersReducer = (state: InitialStateUsersReducerType = initialState,
             return {...state, totalCount: action.totalCount}
         case 'SET_LOADING':
             return {...state, isLoading: action.loading}
+        case 'ADD_ID_IN_FOLLOWING_PROGRESS':
+            return {
+                ...state, followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(el => el != action.userId)
+            }
         default:
             return state
     }
@@ -69,4 +81,44 @@ export const setTotalCount = (totalCount: number) => ({type: 'SET_TOTAL_COUNT', 
 type SetLoadingACType = ReturnType<typeof setLoading>
 export const setLoading = (loading: boolean) => ({type: 'SET_LOADING', loading}) as const
 
+type AddIdInFollowingProgressType = ReturnType<typeof addIdInFollowingProgress>
+export const addIdInFollowingProgress = (isFetching: boolean, userId: number) => ({
+    type: 'ADD_ID_IN_FOLLOWING_PROGRESS',
+    isFetching,
+    userId
+}) as const
 
+export const getUsersTC = (pageSize: number, currentPage: number = 1) => (dispatch: Dispatch) => {
+    dispatch(setLoading(true))
+    usersAPI.getUsers(pageSize, currentPage)
+        .then((response) => {
+            dispatch(setUsers(response.data.items))
+            dispatch(setTotalCount(response.data.totalCount))
+            dispatch(setCurrentPage(currentPage))
+            dispatch(setLoading(false))
+        })
+}
+
+
+export const addFollowTC = (userId: number) => (dispatch: Dispatch) => {
+  dispatch (addIdInFollowingProgress(true, userId))
+    usersAPI.follow(userId)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+               dispatch (follow(userId))
+              dispatch(addIdInFollowingProgress(false, userId))
+            }
+
+        })
+}
+
+export const addUnfollowTC = (userId: number) => (dispatch: Dispatch) => {
+   dispatch(addIdInFollowingProgress(true, userId))
+    usersAPI.unfollow(userId)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+               dispatch(unfollow(userId))
+               dispatch(addIdInFollowingProgress(false, userId))
+            }
+        })
+}

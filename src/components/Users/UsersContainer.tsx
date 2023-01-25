@@ -1,49 +1,37 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Dispatch} from 'redux';
 import {AppRootState} from "../../redux/store";
 import {
-    follow,
+    addIdInFollowingProgress, addFollowTC,
+    follow, getUsersTC,
     InitialStateUsersReducerType,
     setCurrentPage, setLoading, setTotalCount,
     setUsers,
     unfollow,
-    UserType
-} from "../../redux/users-reducer";
-import axios from "axios";
+    UserType, addUnfollowTC
+} from "../../redux/usersReducer";
 import Users from "./Users";
+
 
 type UsersContainerPropsType = MapStateToPropsType & MapDispatchTyPropsType
 
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
-        this.props.setLoading(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPage.pageSize}&page=${this.props.usersPage.currentPage}`, {withCredentials: true})
-            .then((response) => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
-                this.props.setLoading(false)
-            })
+        this.props.getUsersTC(this.props.usersPage.pageSize, this.props.usersPage.currentPage)
     }
 
     onClickPage = (currentPage: number) => {
-        this.props.setLoading(true)
-        this.props.setCurrentPage(currentPage)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPage.pageSize}&page=${this.props.usersPage.currentPage}`, {withCredentials: true})
-            .then((response) => {
-                this.props.setUsers(response.data.items)
-                this.props.setLoading(false)
-            })
+        this.props.getUsersTC(this.props.usersPage.pageSize, currentPage)
     }
-    render () {
+
+    render() {
 
         return <Users
             usersPage={this.props.usersPage}
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
-            setCurrentPage={this.props.setCurrentPage}
             onClickPage={this.onClickPage}
+            addFollowTC={this.props.addFollowTC}
+            addUnfollowTC={this.props.addUnfollowTC}
         />
     }
 }
@@ -63,9 +51,10 @@ type MapDispatchTyPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (data: UserType[]) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalCount: (totalCount: number) => void
-    setLoading: (loading: boolean) => void
+    addIdInFollowingProgress: (isFetching: boolean, userId: number) => void
+    getUsersTC: (pageSize: number, currentPage: number) => void
+    addFollowTC: (userId: number) => void
+    addUnfollowTC: (userId: number) => void
 }
 
 
@@ -75,6 +64,10 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalCount,
-    setLoading
+    setLoading,
+    addIdInFollowingProgress,
+    getUsersTC,
+    addFollowTC,
+    addUnfollowTC
 })(UsersContainer)
 

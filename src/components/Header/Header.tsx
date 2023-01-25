@@ -2,19 +2,19 @@ import React from 'react';
 import style from './Header.module.css'
 import {connect} from "react-redux";
 import {AppRootState} from "../../redux/store";
-import axios from "axios";
-import {getAuth, InitialStateAuthReducerType} from "../../redux/auth-reducer";
+import {InitialStateAuthReducerType, setAuthMeTC} from "../../redux/authReducer";
 
 type HeaderContainerPropsType = MapDispatchToPropsType & MapStateToPropsType
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     componentDidMount() {
-        axios.get ('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
-            .then (response => {
-                if (response.data.resultCode === 0) {
-                    this.props.getAuth (response.data.data)
-                }
-            })
+        this.props.setAuthMeTC()
+        // axios.get ('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
+        //     .then (response => {
+        //         if (response.data.resultCode === 0) {
+        //             this.props.getAuth (response.data.data)
+        //         }
+        //     })
 
     }
 
@@ -36,15 +36,13 @@ const Header = (props: HeaderPropsType) => {
                     ? <div className={style.header__login}>{props.auth.login}</div>
                     : <div className={style.header__login}>Login</div>
                 }
-
             </div>
-
         </div>
     );
 };
 
 type MapDispatchToPropsType = {
-    getAuth: (payload: any) => void
+    setAuthMeTC: () => void
 }
 
 type MapStateToPropsType = {
@@ -57,4 +55,6 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 }
 
 
-export default connect (mapStateToProps, {getAuth}) (HeaderContainer)
+export default connect (mapStateToProps, {
+    setAuthMeTC
+}) (HeaderContainer)
