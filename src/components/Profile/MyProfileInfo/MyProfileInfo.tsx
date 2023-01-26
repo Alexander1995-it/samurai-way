@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import style from './MyProfileInfo.module.css'
-import {InitialStateProfileReducerType, ProfileType} from "../../../redux/profileReducer";
-import EditIcon from '@mui/icons-material/Edit';
-import {IconButton} from "@mui/material";
+import {InitialStateProfileReducerType, ProfileType, updateStatusProfileTC} from "../../../redux/profileReducer";
+import {StatusProfile} from "./StatusProfile/StatusProfile";
 
 type MyProfileInfoPropsType = {
     profilePage: InitialStateProfileReducerType
+    updateStatusProfileTC: (status: string) => void
 }
 const MyProfileInfo = (props: MyProfileInfoPropsType) => {
-
-const [localStatus, setLocalStatus] = useState(props.profilePage.status)
 
     return (
         <div className={style.profileInfo__block}>
@@ -21,17 +19,9 @@ const [localStatus, setLocalStatus] = useState(props.profilePage.status)
                 <span className={style.profileInfo__name__label}>Name: </span>
                 <span className={style.profileInfo__name__text}>{props.profilePage.profile.fullName}</span>
             </div>
-            <div className={style.profileInfo__status}>
-                   <div>
-                       <span className={style.profileInfo__status__label}>Status: </span>
-                       <span className={style.profileInfo__status__text}>{props.profilePage.status}</span>
-                   </div>
-                    <div className={style.editStatus}>
-                        <IconButton sx={{color: 'black'}} component="span">
-                            <EditIcon sx={{fontSize: '20px'}}/>
-                        </IconButton>
-                    </div>
-            </div>
+            <StatusProfile updateStatusProfileTC={props.updateStatusProfileTC}
+                           status={props.profilePage.status}
+            />
         </div>
     );
 };

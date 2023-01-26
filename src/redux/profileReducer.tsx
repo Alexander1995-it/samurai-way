@@ -27,7 +27,7 @@ let initialState = {
             small: ava, large: null
         }
     },
-    status: null as null | string,
+    status: '',
     myPost: [
         {id: 1, post: 'I am from Minsk', likes: 10},
         {id: 2, post: 'I am student of Incubator', likes: 20},
@@ -89,5 +89,12 @@ export const setStatusTC = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(response => {
             dispatch(setStatusUserInProfile(response.data))
+        })
+}
+
+export const updateStatusProfileTC = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            console.log(response)
         })
 }

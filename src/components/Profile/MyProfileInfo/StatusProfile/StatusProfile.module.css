@@ -1,0 +1,15 @@
+.status__block {
+    display: flex;
+    align-items: center;
+}
+
+.status__label {
+    font-size: 20px;
+    font-family: "JetBrains Mono";
+}
+
+.status__text {
+    font-size: 20px;
+    font-family: Gadugi;
+    margin-right: 5px;
+}

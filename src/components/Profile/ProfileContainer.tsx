@@ -6,7 +6,7 @@ import {
     changePostText,
     getProfileTC,
     InitialStateProfileReducerType, setStatusTC,
-    setUserProfile
+    setUserProfile, updateStatusProfileTC
 } from "../../redux/profileReducer";
 import Profile from "./Profile";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -21,11 +21,23 @@ class ProfileContainer extends React.Component<CommonProfileContainerPropsType> 
         let paramsId = this.props.match.params.userId
 
         if (!paramsId) {
-            paramsId = String(this.props.profilePage.profile.userId)
+            paramsId = String(this.props.myId)
         }
         this.props.getProfileTC(+paramsId)
         this.props.setStatusTC(+paramsId)
     }
+
+    componentDidUpdate(prevProps: Readonly<CommonProfileContainerPropsType>, prevState: Readonly<{}>) {
+        let paramsId = this.props.match.params.userId
+        if (prevProps.match.params.userId !== this.props.match.params.userId) {
+            if (!paramsId) {
+                paramsId = String(this.props.myId)
+            }
+            this.props.getProfileTC(+paramsId)
+            this.props.setStatusTC(+paramsId)
+        }
+    }
+
 
     render() {
         return <Profile {...this.props}/>
@@ -35,11 +47,13 @@ class ProfileContainer extends React.Component<CommonProfileContainerPropsType> 
 
 export type MapStateToPropsType = {
     profilePage: InitialStateProfileReducerType
+    myId: null | number
 }
 
 const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     return {
         profilePage: state.profilePage,
+        myId: state.auth.id
     }
 }
 
@@ -49,6 +63,7 @@ export type MapDispatchToPropsType = {
     setUserProfile: (payload: any) => void
     getProfileTC: (paramsId: number) => void
     setStatusTC: (userId: number) => void
+    updateStatusProfileTC: (status: string) => void
 }
 
 
@@ -57,6 +72,7 @@ export default connect(mapStateToProps, {
     changePostText,
     setUserProfile,
     getProfileTC,
-    setStatusTC
+    setStatusTC,
+    updateStatusProfileTC
 })(withRouter(ProfileContainer))
 

@@ -7,9 +7,12 @@ import {CommonProfileContainerPropsType} from "./ProfileContainer";
 type ProfilePropsType = CommonProfileContainerPropsType
 
 const Profile = (props: ProfilePropsType) => {
+
     return (
         <div className={style.profile__block}>
-            <MyProfileInfo profilePage={props.profilePage}/>
+            <MyProfileInfo updateStatusProfileTC={props.updateStatusProfileTC}
+                           profilePage={props.profilePage}
+            />
             <MyPosts
                 messagePost={props.profilePage.textPost}
                 myPosts={props.profilePage.myPost}

@@ -9,13 +9,6 @@ type HeaderContainerPropsType = MapDispatchToPropsType & MapStateToPropsType
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     componentDidMount() {
         this.props.setAuthMeTC()
-        // axios.get ('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
-        //     .then (response => {
-        //         if (response.data.resultCode === 0) {
-        //             this.props.getAuth (response.data.data)
-        //         }
-        //     })
-
     }
 
     render() {

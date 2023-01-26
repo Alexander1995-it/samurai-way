@@ -1,23 +1,10 @@
-.profileInfo__block {
-
-}
+.profileInfo__block {}
 
 .profileInfo__name {
     margin-bottom: 5px;
 }
 
-.profileInfo__status {
-    display: flex;
-    align-items: center;
-}
-
-
 .profileInfo__name__label {
-    font-size: 20px;
-    font-family: "JetBrains Mono";
-}
-
-.profileInfo__status__label {
     font-size: 20px;
     font-family: "JetBrains Mono";
 }
@@ -27,8 +14,3 @@
     font-family: Consolas;
 }
 
-.profileInfo__status__text {
-    font-size: 20px;
-    font-family: Gadugi;
-    margin-right: 5px;
-}
