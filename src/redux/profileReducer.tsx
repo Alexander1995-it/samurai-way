@@ -95,6 +95,8 @@ export const setStatusTC = (userId: number) => (dispatch: Dispatch) => {
 export const updateStatusProfileTC = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status)
         .then(response => {
-            console.log(response)
+            if (response.data.resultCode === 0) {
+                dispatch(setStatusUserInProfile(status))
+            }
         })
 }
