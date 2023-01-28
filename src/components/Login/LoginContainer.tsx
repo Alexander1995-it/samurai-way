@@ -2,7 +2,6 @@ import React from 'react';
 import Login from "./Login";
 import {connect} from "react-redux";
 import {AppRootState} from "../../redux/store";
-import {Dispatch} from "redux";
 import {Redirect} from "react-router-dom";
 
 class LoginContainer extends React.Component<LoginContainerType> {
@@ -21,11 +20,8 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+export default connect(mapStateToProps, {})(LoginContainer)
 
 
 //type
@@ -34,4 +30,8 @@ type MapStateToPropsType = {
     isAuth: boolean
 }
 
-type LoginContainerType = MapStateToPropsType
+type MapDispatchToPropsType = {
+    isAuth: boolean
+}
+
+type LoginContainerType = MapStateToPropsType & MapDispatchToPropsType

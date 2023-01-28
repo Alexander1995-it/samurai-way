@@ -17,7 +17,7 @@
 .header__title {
     color: brown;
     font-size: 35px;
-    font-family: "Noto Color Emoji" ;
+    font-family: "Noto Color Emoji";
 
 }
 
@@ -25,6 +25,23 @@
 .header__login {
     color: brown;
     font-size: 25px;
-    font-family: "Noto Color Emoji" ;
+    font-family: "Noto Color Emoji";
+}
+
+.logout__block {
+    display: flex;
+    align-items: flex-end;
+
+}
+
+.logout__text {
+    color: brown;
+    font-size: 25px;
+    font-family: "Noto Color Emoji";
+    margin-right: 5px;
+}
+
+.logout__icon {
+    cursor: pointer;
 }
 

@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {IconButton, TextField} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 import style from './StatusProfile.module.css'
-import CancelIcon from '@mui/icons-material/Cancel';
+import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 
 export type StatusProfileType = {
     status: string
@@ -29,9 +28,6 @@ export const StatusProfile = (props: StatusProfileType) => {
 
     }
 
-    const cancelHandler = () => {
-
-    }
 
     const changeLocalState = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setLocalStatus(e.currentTarget.value)
@@ -49,8 +45,8 @@ export const StatusProfile = (props: StatusProfileType) => {
             </div>
             <div className={style.editStatus}>
                 {isEditMode
-                    ? <IconButton onClick={() => cancelHandler()} sx={{color: 'black'}} component="span">
-                        <CancelIcon sx={{fontSize: '30px'}}/>
+                    ? <IconButton sx={{color: 'black'}} component="span">
+                        <FileDownloadDoneIcon sx={{fontSize: '30px'}}/>
                     </IconButton>
                     : <IconButton onClick={() => editDeactiveHandler()} sx={{color: 'black'}} component="span">
                         <EditIcon sx={{fontSize: '20px'}}/>

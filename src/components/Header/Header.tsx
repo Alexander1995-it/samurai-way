@@ -2,7 +2,8 @@ import React from 'react';
 import style from './Header.module.css'
 import {connect} from "react-redux";
 import {AppRootState} from "../../redux/store";
-import {InitialStateAuthReducerType, setAuthMeTC} from "../../redux/authReducer";
+import {InitialStateAuthReducerType, logoutTC, setAuthMeTC} from "../../redux/authReducer";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 type HeaderContainerPropsType = MapDispatchToPropsType & MapStateToPropsType
 
@@ -12,12 +13,15 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     }
 
     render() {
-        return <Header auth={this.props.auth}/>;
+        return <Header
+            logoutTC={this.props.logoutTC}
+            auth={this.props.auth}/>;
     }
 }
 
 type HeaderPropsType = {
     auth: InitialStateAuthReducerType
+    logoutTC: () => void
 }
 
 const Header = (props: HeaderPropsType) => {
@@ -26,7 +30,10 @@ const Header = (props: HeaderPropsType) => {
             <div className={style.header__wrapper}>
                 <div className={style.header__title}> social network Incubator</div>
                 {props.auth.isAuth
-                    ? <div className={style.header__login}>{props.auth.login}</div>
+                    ? <div className={style.logout__block}>
+                        <div className={style.logout__text}>{props.auth.login}</div>
+                        <div className={style.logout__icon}><LogoutIcon onClick={() =>props.logoutTC()} sx={{fontSize: '20px'}}/></div>
+                    </div>
                     : <div className={style.header__login}>Login</div>
                 }
             </div>
@@ -36,18 +43,20 @@ const Header = (props: HeaderPropsType) => {
 
 type MapDispatchToPropsType = {
     setAuthMeTC: () => void
+    logoutTC: () => void
 }
 
 type MapStateToPropsType = {
     auth: InitialStateAuthReducerType
 }
 const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
-  return {
-      auth: state.auth
-  }
+    return {
+        auth: state.auth
+    }
 }
 
 
-export default connect (mapStateToProps, {
-    setAuthMeTC
-}) (HeaderContainer)
+export default connect(mapStateToProps, {
+    setAuthMeTC,
+    logoutTC
+})(HeaderContainer)

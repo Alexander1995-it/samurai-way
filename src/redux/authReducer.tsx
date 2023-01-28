@@ -17,7 +17,7 @@ export type ProfileReducerActionType = GetAuthACType
 export const authReducer = (state: InitialStateAuthReducerType = initialState, action: ProfileReducerActionType): InitialStateAuthReducerType => {
     switch (action.type) {
         case "GET_AUTH": {
-            return {...state, ...action.payload, isAuth: true}
+            return {...state, ...action.payload}
         }
 
         default:
@@ -25,16 +25,41 @@ export const authReducer = (state: InitialStateAuthReducerType = initialState, a
     }
 }
 
-export type GetAuthACType = ReturnType<typeof getAuth>
-export const getAuth = (payload: any) => ({type: "GET_AUTH", payload}) as const
+export type GetAuthACType = ReturnType<typeof setIsAuth>
+export const setIsAuth = (payload: PayloadIsAuthType) => ({type: "GET_AUTH", payload}) as const
 
 
 export const setAuthMeTC = () => (dispatch: Dispatch) => {
     authMeAPI.getAuthMe()
-        .then (response => {
+        .then(response => {
             if (response.data.resultCode === 0) {
-               dispatch (getAuth (response.data.data))
+                dispatch(setIsAuth({...response.data.data, isAuth: true}))
             }
         })
 }
+
+
+export const logoutTC = () => (dispatch: Dispatch) => {
+    authMeAPI.logout()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setIsAuth({
+                    id: null,
+                    email: null,
+                    login: null,
+                    isAuth: false
+                }))
+            }
+        })
+}
+
+// type
+
+type PayloadIsAuthType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+}
+
 
