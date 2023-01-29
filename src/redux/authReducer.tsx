@@ -1,6 +1,6 @@
 import React from 'react';
-import {authMeAPI} from "../api/api";
-import {Dispatch} from "redux";
+import {authMeAPI, LoginRequestType} from "../api/api";
+import {AppThunk} from "./store";
 
 export type InitialStateAuthReducerType = typeof initialState
 
@@ -11,25 +11,30 @@ let initialState = {
     isAuth: false
 }
 
-export type ProfileReducerActionType = GetAuthACType
 
 
-export const authReducer = (state: InitialStateAuthReducerType = initialState, action: ProfileReducerActionType): InitialStateAuthReducerType => {
+
+export const authReducer = (state: InitialStateAuthReducerType = initialState, action: AuthReducerActionType): InitialStateAuthReducerType => {
     switch (action.type) {
         case "GET_AUTH": {
             return {...state, ...action.payload}
         }
-
         default:
             return state
     }
 }
 
+//typesActions
+export type AuthReducerActionType = GetAuthACType
 export type GetAuthACType = ReturnType<typeof setIsAuth>
+
+//actions
+
 export const setIsAuth = (payload: PayloadIsAuthType) => ({type: "GET_AUTH", payload}) as const
 
+//thunks
 
-export const setAuthMeTC = () => (dispatch: Dispatch) => {
+export const setAuthMeTC = (): AppThunk => (dispatch) => {
     authMeAPI.getAuthMe()
         .then(response => {
             if (response.data.resultCode === 0) {
@@ -38,8 +43,17 @@ export const setAuthMeTC = () => (dispatch: Dispatch) => {
         })
 }
 
+export const loginTC = (payload: LoginRequestType): AppThunk => (dispatch) => {
+    authMeAPI.login(payload)
+        .then (response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthMeTC())
+            }
+        })
+}
 
-export const logoutTC = () => (dispatch: Dispatch) => {
+
+export const logoutTC = (): AppThunk => (dispatch) => {
     authMeAPI.logout()
         .then(response => {
             if (response.data.resultCode === 0) {

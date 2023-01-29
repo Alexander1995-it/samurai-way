@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 
 const instance = axios.create({
@@ -38,7 +38,26 @@ export const authMeAPI = {
     getAuthMe() {
         return instance.get('auth/me')
     },
+    login(payload: LoginRequestType) {
+        return instance.post<LoginRequestType, AxiosResponse<ResponseType>>('auth/login', payload)
+    },
     logout() {
         return instance.delete('auth/login')
     }
+}
+
+//type
+
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    fieldsErrors: Array<string>
+    data: D
+}
+
+export type LoginRequestType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: boolean
 }

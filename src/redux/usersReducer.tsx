@@ -1,5 +1,6 @@
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {AppThunk} from "./store";
 
 export type UserType = { id: number, followed: boolean, name: string, status: string, photos: { small: string, large: string } }
 
@@ -21,16 +22,6 @@ const initialState = {
     isLoading: false,
     followingInProgress: []
 }
-
-type UsersReducerActionType =
-    FollowACType |
-    UnFollowACType |
-    SetUsersType |
-    SetCurrentPageACType |
-    SetTotalCountACType |
-    SetLoadingACType |
-    AddIdInFollowingProgressType
-
 
 export const usersReducer = (state: InitialStateUsersReducerType = initialState, action: UsersReducerActionType) => {
     switch (action.type) {
@@ -63,32 +54,41 @@ export const usersReducer = (state: InitialStateUsersReducerType = initialState,
     }
 }
 
+//typesActions
+export type UsersReducerActionType =
+    FollowACType |
+    UnFollowACType |
+    SetUsersType |
+    SetCurrentPageACType |
+    SetTotalCountACType |
+    SetLoadingACType |
+    AddIdInFollowingProgressType
+
 type FollowACType = ReturnType<typeof follow>
-export const follow = (userId: number) => ({type: 'FOLLOW', userId}) as const
-
 type UnFollowACType = ReturnType<typeof unfollow>
-export const unfollow = (userId: number) => ({type: 'UNFOLLOW', userId}) as const
-
 type SetUsersType = ReturnType<typeof setUsers>
-export const setUsers = (data: UserType[]) => ({type: 'SET_USERS', data}) as const
-
 type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
-export const setCurrentPage = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', currentPage}) as const
-
-type SetTotalCountACType = ReturnType<typeof setTotalCount>
-export const setTotalCount = (totalCount: number) => ({type: 'SET_TOTAL_COUNT', totalCount}) as const
-
 type SetLoadingACType = ReturnType<typeof setLoading>
-export const setLoading = (loading: boolean) => ({type: 'SET_LOADING', loading}) as const
-
+type SetTotalCountACType = ReturnType<typeof setTotalCount>
 type AddIdInFollowingProgressType = ReturnType<typeof addIdInFollowingProgress>
+
+
+//actions
+
+export const follow = (userId: number) => ({type: 'FOLLOW', userId}) as const
+export const unfollow = (userId: number) => ({type: 'UNFOLLOW', userId}) as const
+export const setUsers = (data: UserType[]) => ({type: 'SET_USERS', data}) as const
+export const setCurrentPage = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', currentPage}) as const
+export const setTotalCount = (totalCount: number) => ({type: 'SET_TOTAL_COUNT', totalCount}) as const
+export const setLoading = (loading: boolean) => ({type: 'SET_LOADING', loading}) as const
 export const addIdInFollowingProgress = (isFetching: boolean, userId: number) => ({
     type: 'ADD_ID_IN_FOLLOWING_PROGRESS',
     isFetching,
     userId
 }) as const
 
-export const getUsersTC = (pageSize: number, currentPage: number = 1) => (dispatch: Dispatch) => {
+//thunks
+export const getUsersTC = (pageSize: number, currentPage: number = 1):AppThunk => (dispatch) => {
     dispatch(setLoading(true))
     usersAPI.getUsers(pageSize, currentPage)
         .then((response) => {
@@ -100,7 +100,7 @@ export const getUsersTC = (pageSize: number, currentPage: number = 1) => (dispat
 }
 
 
-export const addFollowTC = (userId: number) => (dispatch: Dispatch) => {
+export const addFollowTC = (userId: number): AppThunk => (dispatch) => {
   dispatch (addIdInFollowingProgress(true, userId))
     usersAPI.follow(userId)
         .then(response => {
@@ -112,7 +112,7 @@ export const addFollowTC = (userId: number) => (dispatch: Dispatch) => {
         })
 }
 
-export const addUnfollowTC = (userId: number) => (dispatch: Dispatch) => {
+export const addUnfollowTC = (userId: number): AppThunk => (dispatch) => {
    dispatch(addIdInFollowingProgress(true, userId))
     usersAPI.unfollow(userId)
         .then(response => {

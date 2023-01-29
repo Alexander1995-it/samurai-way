@@ -1,7 +1,7 @@
 import React from 'react';
 import ava from "../images/IMG_social-network.jpg";
-import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
+import {AppThunk} from "./store";
 
 export type InitialStateProfileReducerType = typeof initialState
 export type ProfileType = typeof initialState.profile
@@ -35,11 +35,6 @@ let initialState = {
     ]
 }
 
-export type ProfileReducerActionType =
-    | ChangeTextPostACType
-    | AddPostACType
-    | SetUserProfileType
-    | SetStatusUserInProfileType
 
 
 export const profileReducer = (state: InitialStateProfileReducerType = initialState, action: ProfileReducerActionType): InitialStateProfileReducerType => {
@@ -62,37 +57,44 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
     }
 }
 
-//actions
+//typesActions
+export type ProfileReducerActionType =
+    | ChangeTextPostACType
+    | AddPostACType
+    | SetUserProfileType
+    | SetStatusUserInProfileType
 
 export type ChangeTextPostACType = ReturnType<typeof changePostText>
-export const changePostText = (text: string) => ({type: "CHANGE_TEXT_POST", text}) as const
-
 export type AddPostACType = ReturnType<typeof addPost>
-export const addPost = (post: string) => ({type: "ADD_POST", post}) as const
-
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
-export const setUserProfile = (payload: any) => ({type: 'SET_USER_PROFILE', payload}) as const
-
 export type SetStatusUserInProfileType = ReturnType<typeof setStatusUserInProfile>
+
+
+
+//actions
+
+export const changePostText = (text: string) => ({type: "CHANGE_TEXT_POST", text}) as const
+export const addPost = (post: string) => ({type: "ADD_POST", post}) as const
+export const setUserProfile = (payload: any) => ({type: 'SET_USER_PROFILE', payload}) as const
 export const setStatusUserInProfile = (status: string) => ({type: 'SET_STATUS', status}) as const
 
 //thunk
 
-export const getProfileTC = (paramsId: number) => (dispatch: Dispatch) => {
+export const getProfileTC = (paramsId: number): AppThunk => (dispatch) => {
     profileAPI.getPtofile(paramsId)
         .then(response => {
             dispatch(setUserProfile(response.data))
         })
 }
 
-export const setStatusTC = (userId: number) => (dispatch: Dispatch) => {
+export const setStatusTC = (userId: number): AppThunk => (dispatch) => {
     profileAPI.getStatus(userId)
         .then(response => {
             dispatch(setStatusUserInProfile(response.data))
         })
 }
 
-export const updateStatusProfileTC = (status: string) => (dispatch: Dispatch) => {
+export const updateStatusProfileTC = (status: string): AppThunk => (dispatch) => {
     profileAPI.updateStatus(status)
         .then(response => {
             if (response.data.resultCode === 0) {
