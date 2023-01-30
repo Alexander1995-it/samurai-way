@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import Dialogs from "./components/Dialogs/Dialogs";
@@ -7,9 +7,20 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/Header";
 import LoginContainer from "./components/Login/LoginContainer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootState} from "./redux/store";
+import {setAuthMeTC} from "./redux/authReducer";
 
 function App() {
+const isInitialized = useSelector<AppRootState>((state) => state.app.initialized)
+const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(setAuthMeTC())
+    }, [])
 
+    if (!isInitialized) {
+        return <div>Загрузка...</div>
+    }
 
     return (
 

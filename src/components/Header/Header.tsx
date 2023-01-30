@@ -8,9 +8,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 type HeaderContainerPropsType = MapDispatchToPropsType & MapStateToPropsType
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
-    componentDidMount() {
-        this.props.setAuthMeTC()
-    }
 
     render() {
         return <Header
@@ -42,7 +39,6 @@ const Header = (props: HeaderPropsType) => {
 };
 
 type MapDispatchToPropsType = {
-    setAuthMeTC: () => void
     logoutTC: () => void
 }
 
@@ -57,6 +53,5 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
 
 
 export default connect(mapStateToProps, {
-    setAuthMeTC,
     logoutTC
 })(HeaderContainer)

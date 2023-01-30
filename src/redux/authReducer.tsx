@@ -1,6 +1,7 @@
 import React from 'react';
 import {authMeAPI, LoginRequestType} from "../api/api";
 import {AppThunk} from "./store";
+import {initializedApp} from "./appReducer";
 
 export type InitialStateAuthReducerType = typeof initialState
 
@@ -10,9 +11,6 @@ let initialState = {
     login: null as string | null,
     isAuth: false
 }
-
-
-
 
 export const authReducer = (state: InitialStateAuthReducerType = initialState, action: AuthReducerActionType): InitialStateAuthReducerType => {
     switch (action.type) {
@@ -40,6 +38,9 @@ export const setAuthMeTC = (): AppThunk => (dispatch) => {
             if (response.data.resultCode === 0) {
                 dispatch(setIsAuth({...response.data.data, isAuth: true}))
             }
+        })
+        .finally(() => {
+            dispatch(initializedApp())
         })
 }
 
