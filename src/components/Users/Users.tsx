@@ -4,6 +4,7 @@ import NoAvatar from "../../images/NoAvatar.png";
 import {InitialStateUsersReducerType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
 import UsersPagination from "./Pagination/UsersPagination";
+import {CircularProgress} from "@mui/material";
 
 
 type UsersPropsType = {
@@ -23,6 +24,14 @@ const Users = (props: UsersPropsType) => {
     const handlerUnfollow = (userId: number) => {
         props.addUnfollowTC(userId)
     }
+
+    if (props.usersPage.isLoading) {
+        return <div>
+             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}
+            <CircularProgress/>
+        </div>
+    }
+
     return (
         <div>
 
