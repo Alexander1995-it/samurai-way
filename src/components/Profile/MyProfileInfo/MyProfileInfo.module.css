@@ -1,16 +1,20 @@
-.profileInfo__block {}
+.profileInfo__block {
+    display: flex;
+}
 
 .profileInfo__name {
     margin-bottom: 5px;
 }
 
-.profileInfo__name__label {
-    font-size: 20px;
-    font-family: "JetBrains Mono";
-}
-
 .profileInfo__name__text {
     font-size: 20px;
     font-family: Consolas;
+}
+
+.profileInfo__ava {
+    width: 250px;
+    height: 320px;
+    background-size: cover;
+    background-position: center;
 }
 

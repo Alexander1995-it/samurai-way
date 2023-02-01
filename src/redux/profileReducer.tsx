@@ -1,15 +1,14 @@
 import React from 'react';
-import ava from "../images/IMG_social-network.jpg";
 import {profileAPI} from "../api/api";
 import {AppThunk} from "./store";
+import {setAppStatus} from "./appReducer";
 
 export type InitialStateProfileReducerType = typeof initialState
 export type ProfileType = typeof initialState.profile
 
 let initialState = {
-    textPost: '',
     profile: {
-        fullName: 'Alexander',
+        fullName: '',
         lookingForAJob: true,
         lookingForAJobDescription: null,
         userId: null as null | number,
@@ -24,28 +23,15 @@ let initialState = {
             youtube: null
         },
         photos: {
-            small: ava, large: null
+            small: '',
+            large: ''
         }
     },
-    status: '',
-    myPost: [
-        {id: 1, post: 'I am from Minsk', likes: 10},
-        {id: 2, post: 'I am student of Incubator', likes: 20},
-        {id: 3, post: 'I am looking for a job', likes: 8}
-    ]
+    status: ''
 }
-
-
 
 export const profileReducer = (state: InitialStateProfileReducerType = initialState, action: ProfileReducerActionType): InitialStateProfileReducerType => {
     switch (action.type) {
-        case "CHANGE_TEXT_POST": {
-            return {...state, textPost: action.text}
-        }
-        case "ADD_POST": {
-            let newPost = {id: 1, post: action.post, likes: 10}
-            return {...state, myPost: [newPost, ...state.myPost]}
-        }
         case 'SET_USER_PROFILE': {
             return {...state, profile: action.payload}
         }
@@ -58,33 +44,31 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
 }
 
 //typesActions
+
 export type ProfileReducerActionType =
-    | ChangeTextPostACType
-    | AddPostACType
     | SetUserProfileType
     | SetStatusUserInProfileType
 
-export type ChangeTextPostACType = ReturnType<typeof changePostText>
-export type AddPostACType = ReturnType<typeof addPost>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetStatusUserInProfileType = ReturnType<typeof setStatusUserInProfile>
 
-
-
 //actions
 
-export const changePostText = (text: string) => ({type: "CHANGE_TEXT_POST", text}) as const
-export const addPost = (post: string) => ({type: "ADD_POST", post}) as const
 export const setUserProfile = (payload: any) => ({type: 'SET_USER_PROFILE', payload}) as const
 export const setStatusUserInProfile = (status: string) => ({type: 'SET_STATUS', status}) as const
 
 //thunk
 
-export const getProfileTC = (paramsId: number): AppThunk => (dispatch) => {
-    profileAPI.getPtofile(paramsId)
-        .then(response => {
-            dispatch(setUserProfile(response.data))
-        })
+export const getProfileTC = (paramsId: number): AppThunk => async (dispatch) => {
+    dispatch(setAppStatus('loading'))
+    try {
+        const response = await profileAPI.getPtofile(paramsId)
+        dispatch(setUserProfile(response.data))
+    } catch (e) {
+
+    } finally {
+        dispatch(setAppStatus('succeeded'))
+    }
 }
 
 export const setStatusTC = (userId: number): AppThunk => (dispatch) => {

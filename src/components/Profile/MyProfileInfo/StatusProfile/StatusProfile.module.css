@@ -4,8 +4,7 @@
 }
 
 .status__label {
-    font-size: 20px;
-    font-family: "JetBrains Mono";
+    margin-right: 5px;
 }
 
 .status__text {

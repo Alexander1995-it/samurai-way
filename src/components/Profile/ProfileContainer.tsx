@@ -2,14 +2,13 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppRootState} from "../../redux/store";
 import {
-    addPost,
-    changePostText,
     getProfileTC,
     InitialStateProfileReducerType, setStatusTC,
     setUserProfile, updateStatusProfileTC
 } from "../../redux/profileReducer";
 import Profile from "./Profile";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {StatusAppType} from "../../redux/appReducer";
 
 type PathParamsType = { userId: string }
 export type CommonProfileContainerPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
@@ -38,7 +37,6 @@ class ProfileContainer extends React.Component<CommonProfileContainerPropsType> 
         }
     }
 
-
     render() {
         if (!this.props.isAuth) {
             return <Redirect to='/login'/>
@@ -51,6 +49,7 @@ class ProfileContainer extends React.Component<CommonProfileContainerPropsType> 
 export type MapStateToPropsType = {
     profilePage: InitialStateProfileReducerType
     myId: null | number
+    statusApp: StatusAppType
     isAuth: boolean
 }
 
@@ -58,13 +57,12 @@ const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     return {
         profilePage: state.profilePage,
         myId: state.auth.id,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        statusApp: state.app.statusApp
     }
 }
 
 export type MapDispatchToPropsType = {
-    addPost: (post: string) => void
-    changePostText: (text: string) => void
     setUserProfile: (payload: any) => void
     getProfileTC: (paramsId: number) => void
     setStatusTC: (userId: number) => void
@@ -73,8 +71,6 @@ export type MapDispatchToPropsType = {
 
 
 export default connect(mapStateToProps, {
-    addPost,
-    changePostText,
     setUserProfile,
     getProfileTC,
     setStatusTC,

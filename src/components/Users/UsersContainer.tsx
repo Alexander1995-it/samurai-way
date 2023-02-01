@@ -5,12 +5,13 @@ import {
     addIdInFollowingProgress, addFollowTC,
     follow, getUsersTC,
     InitialStateUsersReducerType,
-    setCurrentPage, setLoading, setTotalCount,
+    setCurrentPage, setTotalCount,
     setUsers,
     unfollow,
     UserType, addUnfollowTC
 } from "../../redux/usersReducer";
 import Users from "./Users";
+import {StatusAppType} from "../../redux/appReducer";
 
 
 type UsersContainerPropsType = MapStateToPropsType & MapDispatchTyPropsType
@@ -32,6 +33,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
             onClickPage={this.onClickPage}
             addFollowTC={this.props.addFollowTC}
             addUnfollowTC={this.props.addUnfollowTC}
+            statusApp={this.props.statusApp}
         />
     }
 }
@@ -39,11 +41,13 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
 
 type MapStateToPropsType = {
     usersPage: InitialStateUsersReducerType
+    statusApp: StatusAppType
 }
 
 const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
     return {
-        usersPage: state.usersPage
+        usersPage: state.usersPage,
+        statusApp: state.app.statusApp
     }
 }
 
@@ -64,7 +68,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalCount,
-    setLoading,
     addIdInFollowingProgress,
     getUsersTC,
     addFollowTC,

@@ -5,6 +5,7 @@ import {InitialStateUsersReducerType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
 import UsersPagination from "./Pagination/UsersPagination";
 import {CircularProgress} from "@mui/material";
+import {StatusAppType} from "../../redux/appReducer";
 
 
 type UsersPropsType = {
@@ -12,6 +13,7 @@ type UsersPropsType = {
     onClickPage: (currentPage: number) => void
     addFollowTC: (userId: number) => void
     addUnfollowTC: (userId: number) => void
+    statusApp: StatusAppType
 }
 
 const Users = (props: UsersPropsType) => {
@@ -25,17 +27,14 @@ const Users = (props: UsersPropsType) => {
         props.addUnfollowTC(userId)
     }
 
-    if (props.usersPage.isLoading) {
-        return <div>
-             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}
+    if (props.statusApp === 'loading') {
+        return <div  style={{display: 'flex', height: '70%', alignItems: 'center', justifyContent: 'center'}}>
             <CircularProgress/>
         </div>
     }
 
     return (
         <div>
-
-            {props.usersPage.isLoading ? <div>Loading...</div> : ''}
             <div>
                 <UsersPagination totalCount={props.usersPage.totalCount}
                                  pageSize={props.usersPage.pageSize}
