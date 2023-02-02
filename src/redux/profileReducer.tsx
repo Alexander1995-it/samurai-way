@@ -86,3 +86,7 @@ export const updateStatusProfileTC = (status: string): AppThunk => (dispatch) =>
             }
         })
 }
+
+export const updateInformationProfileTC = (): AppThunk => (dispatch) => {
+
+}

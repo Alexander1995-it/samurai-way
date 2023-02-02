@@ -3,6 +3,7 @@ import style from './MyProfileInfo.module.css'
 import {InitialStateProfileReducerType, ProfileType, updateStatusProfileTC} from "../../../redux/profileReducer";
 import {StatusProfile} from "./StatusProfile/StatusProfile";
 import noAvatar from '../../../images/NoAvatar.png'
+import PersonalInformation from "./PersonalInformation/PersonalInformation";
 
 type MyProfileInfoPropsType = {
     profilePage: InitialStateProfileReducerType
@@ -14,16 +15,17 @@ const MyProfileInfo = (props: MyProfileInfoPropsType) => {
     }
     return (
         <div className={style.profileInfo__block}>
-           <div>
-               <div style={myImages} className={style.profileInfo__ava}></div>
-               <div className={style.profileInfo__name}>
-                   <span className={style.profileInfo__name__text}>{props.profilePage.profile.fullName}</span>
-               </div>
-           </div>
             <div>
+                <div style={myImages} className={style.profileInfo__ava}></div>
+                <div className={style.profileInfo__name}>
+                    <span className={style.profileInfo__name__text}>{props.profilePage.profile.fullName}</span>
+                </div>
+            </div>
+            <div className={style.infoBlock}>
                 <StatusProfile updateStatusProfileTC={props.updateStatusProfileTC}
-                               status={props.profilePage.status}
-                />
+                               status={props.profilePage.status}/>
+                <PersonalInformation profile={props.profilePage.profile}/>
+
             </div>
         </div>
     );

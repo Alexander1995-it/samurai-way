@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from "axios";
+import {ProfileType} from "../redux/profileReducer";
 
 
 const instance = axios.create({
@@ -31,6 +32,9 @@ export const profileAPI = {
     },
     updateStatus(status: string) {
         return instance.put('profile/status', {status})
+    },
+    updatePersonalInformation (model: ProfileType) {
+        return instance.put<ProfileType, AxiosResponse<ResponseType>>(`profile`, model)
     }
 }
 
