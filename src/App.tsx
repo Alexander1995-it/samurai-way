@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./redux/store";
 import {setAuthMeTC} from "./redux/authReducer";
 import {CircularProgress} from "@mui/material";
+import ChangePersonalInformation from "./components/ChangePersonalInformation/ChangePersonalInformation";
 
 function App() {
     const isInitialized = useSelector<AppRootState>((state) => state.app.initialized)
@@ -41,6 +42,7 @@ function App() {
                                             <Route path='/profile:userId?' render={() => <ProfileContainer/>}/>
                                             <Route path='/dialogs' render={() => <Dialogs/>}/>
                                             <Route path='/users' render={() => <UsersContainer/>}/>
+                                            <Route path='/changePersonalInformation' render={() => <ChangePersonalInformation/>}/>
                                             <Route path='/' render={() => <Redirect to='/profile'/>}/>
                                         </Switch>
                                     </div>
