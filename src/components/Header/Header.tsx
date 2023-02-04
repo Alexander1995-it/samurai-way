@@ -1,9 +1,9 @@
 import React from 'react';
 import style from './Header.module.css'
 import {connect} from "react-redux";
-import {AppRootState} from "../../redux/store";
 import {InitialStateAuthReducerType, logoutTC, setAuthMeTC} from "../../redux/authReducer";
 import LogoutIcon from '@mui/icons-material/Logout';
+import {AppRootStateType} from "../../redux/store";
 
 type HeaderContainerPropsType = MapDispatchToPropsType & MapStateToPropsType
 
@@ -45,7 +45,7 @@ type MapDispatchToPropsType = {
 type MapStateToPropsType = {
     auth: InitialStateAuthReducerType
 }
-const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         auth: state.auth
     }

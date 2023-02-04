@@ -33,8 +33,8 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put('profile/status', {status})
     },
-    updatePersonalInformation (model: ProfileType) {
-        return instance.put<ProfileType, AxiosResponse<ResponseType>>(`profile`, model)
+    updatePersonalInformation (model: UpdateModelProfileType) {
+        return instance.put<UpdateModelProfileType, AxiosResponse<ResponseType>>(`profile`, model)
     }
 }
 
@@ -64,4 +64,21 @@ export type LoginRequestType = {
     password: string
     rememberMe?: boolean
     captcha?: boolean
+}
+
+export type UpdateModelProfileType = {
+        fullName: null | string
+        lookingForAJob: boolean,
+        lookingForAJobDescription: null | string,
+        userId: null | number,
+        contacts: {
+            facebook: null | string,
+            github: null | string,
+            instagram: null | string,
+            mainLink: null | string,
+            twitter: null | string,
+            vk: null | string,
+            website: null | string,
+            youtube: null | string
+        }
 }

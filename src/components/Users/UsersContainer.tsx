@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {AppRootState} from "../../redux/store";
+import {AppRootStateType} from "../../redux/store";
 import {
     addIdInFollowingProgress, addFollowTC,
     follow, getUsersTC,
@@ -44,7 +44,7 @@ type MapStateToPropsType = {
     statusApp: StatusAppType
 }
 
-const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         usersPage: state.usersPage,
         statusApp: state.app.statusApp

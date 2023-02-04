@@ -1,5 +1,9 @@
 .profile__block {
-  margin: 14px 0 0 14px;
+  font-family: "'Playfair Display', serif";
+  font-size: 19px;
+  margin: 14px 14px 0 14px;
   color: black;
-  ;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }

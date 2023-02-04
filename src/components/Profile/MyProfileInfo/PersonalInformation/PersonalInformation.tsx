@@ -1,5 +1,6 @@
-import React from 'react';
-import {ProfileType} from "../../../../redux/profileReducer";
+import React from 'react'
+import {ProfileType} from "../../../../redux/profileReducer"
+import style from './PersonalInformation.module.css'
 
 type PersonalInformation = {
     profile: ProfileType
@@ -7,11 +8,14 @@ type PersonalInformation = {
 
 const PersonalInformation = (props: PersonalInformation) => {
     return (
-        <div>
-            <div>
-                <span style={{fontFamily: "'Playfair Display', serif"}}>Personal information: </span>
-                <div>
-                    {props.profile.lookingForAJob && props.profile.lookingForAJobDescription}
+        <div className={style.personalInformationBlock}>
+            <div className={style.labelInfo}>Personal information:</div>
+            <div className={style.personalInformation}>
+                <div className={style.aboutMeBlock}>
+                    <span>About me: </span> {props.profile.aboutMe}
+                </div>
+                <div className={style.descriptionAJobBlock}>
+                   <span>Looking for a lob description: </span> {props.profile.lookingForAJob && props.profile.lookingForAJobDescription}
                 </div>
                 <div>
                     {props.profile.contacts.vk}

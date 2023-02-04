@@ -4,20 +4,16 @@ import {InitialStateProfileReducerType, ProfileType, updateStatusProfileTC} from
 import {StatusProfile} from "./StatusProfile/StatusProfile";
 import noAvatar from '../../../images/NoAvatar.png'
 import PersonalInformation from "./PersonalInformation/PersonalInformation";
-import Button from '@mui/material/Button';
-import {NavLink, Redirect} from "react-router-dom";
-
 
 type MyProfileInfoPropsType = {
     profilePage: InitialStateProfileReducerType
     updateStatusProfileTC: (status: string) => void
 }
 const MyProfileInfo = (props: MyProfileInfoPropsType) => {
+
     const myImages = {
         backgroundImage: props.profilePage.profile.photos.large ? `url(${props.profilePage.profile.photos.large})` : `url(${noAvatar})`
     }
-
-
 
     return (
         <div className={style.profileInfo__block}>
@@ -31,12 +27,6 @@ const MyProfileInfo = (props: MyProfileInfoPropsType) => {
                 <StatusProfile updateStatusProfileTC={props.updateStatusProfileTC}
                                status={props.profilePage.status}/>
                 <PersonalInformation profile={props.profilePage.profile}/>
-               <NavLink style={{textDecoration: 'none'}} to='/changePersonalInformation'>
-                   <Button  variant="outlined" size="small">
-                       Small
-                   </Button>
-               </NavLink>
-
             </div>
         </div>
     )

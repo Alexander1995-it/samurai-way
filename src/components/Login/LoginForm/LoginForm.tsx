@@ -2,8 +2,8 @@ import React from 'react'
 import InputForLogin from './InputForLogin'
 import {Button} from '@mui/material'
 import style from './LoginForm.module.css'
-import {useFormik} from "formik";
-import {LoginRequestType} from "../../../api/api";
+import {useFormik} from 'formik'
+import {LoginRequestType} from '../../../api/api'
 
 type FormikErrorType = {
     email?: string
@@ -67,7 +67,7 @@ const LoginForm = (props: LoginFormType) => {
                     {formik.touched.password && <span style={{color: 'red'}}>{formik.errors.password}</span>}
                 </div>
             </div>
-            <Button className={style.buttonLogin} variant="outlined" type="submit">SIGN IN</Button>
+            <Button className={style.buttonLogin} variant='outlined' type='submit'>SIGN IN</Button>
         </form>
     )
 }

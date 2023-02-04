@@ -1,14 +1,15 @@
-import React from 'react';
-import {profileAPI} from "../api/api";
-import {AppThunk} from "./store";
-import {setAppStatus} from "./appReducer";
+import React from 'react'
+import {profileAPI, UpdateModelProfileType} from '../api/api'
+import {AppThunk} from "./store"
+import {setAppError, setAppStatus} from "./appReducer"
 
 export type InitialStateProfileReducerType = typeof initialState
 export type ProfileType = typeof initialState.profile
 
 let initialState = {
     profile: {
-        fullName: '',
+        fullName: null as null | string,
+        aboutMe: null as null | string,
         lookingForAJob: true,
         lookingForAJobDescription: null,
         userId: null as null | number,
@@ -33,7 +34,7 @@ let initialState = {
 export const profileReducer = (state: InitialStateProfileReducerType = initialState, action: ProfileReducerActionType): InitialStateProfileReducerType => {
     switch (action.type) {
         case 'SET_USER_PROFILE': {
-            return {...state, profile: action.payload}
+            return {...state, profile: {...state.profile, ...action.payload}}
         }
         case 'SET_STATUS': {
             return {...state, status: action.status}
@@ -87,6 +88,15 @@ export const updateStatusProfileTC = (status: string): AppThunk => (dispatch) =>
         })
 }
 
-export const updateInformationProfileTC = (): AppThunk => (dispatch) => {
-
+export const updateInformationProfileTC = (model: UpdateModelProfileType): AppThunk => async (dispatch) => {
+    const response = await profileAPI.updatePersonalInformation(model)
+    if (response.data.resultCode === 0) {
+        dispatch(setUserProfile (model))
+    } else {
+        if (response.data.messages.length) {
+            dispatch(setAppError(response.data.messages[0]))
+        } else {
+            dispatch(setAppError('Some error'))
+        }
+    }
 }

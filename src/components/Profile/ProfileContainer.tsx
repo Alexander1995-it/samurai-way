@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {AppRootState} from "../../redux/store";
+import {AppRootStateType} from "../../redux/store";
 import {
     getProfileTC,
     InitialStateProfileReducerType, setStatusTC,
@@ -53,7 +53,7 @@ export type MapStateToPropsType = {
     isAuth: boolean
 }
 
-const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         profilePage: state.profilePage,
         myId: state.auth.id,

@@ -1,10 +1,10 @@
 import React from 'react';
 import Login from "./Login";
 import {connect} from "react-redux";
-import {AppRootState} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 import {loginTC} from "../../redux/authReducer";
 import {LoginRequestType} from "../../api/api";
+import {AppRootStateType} from "../../redux/store";
 
 class LoginContainer extends React.Component<LoginContainerType> {
 
@@ -16,7 +16,7 @@ class LoginContainer extends React.Component<LoginContainerType> {
     }
 }
 
-const mapStateToProps = (state: AppRootState): MapStateToPropsType => {
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         isAuth: state.auth.isAuth
     }
