@@ -18,7 +18,6 @@ type UsersPropsType = {
 
 const Users = (props: UsersPropsType) => {
 
-
     const handlerFollow = (userId: number) => {
         props.addFollowTC(userId)
     }
@@ -28,13 +27,13 @@ const Users = (props: UsersPropsType) => {
     }
 
     if (props.statusApp === 'loading') {
-        return <div  style={{display: 'flex', height: '70%', alignItems: 'center', justifyContent: 'center'}}>
+        return <div style={{display: 'flex', height: '70%', alignItems: 'center', justifyContent: 'center'}}>
             <CircularProgress/>
         </div>
     }
 
     return (
-        <div>
+        <div className={style.usersPageBlock}>
             <div>
                 <UsersPagination totalCount={props.usersPage.totalCount}
                                  pageSize={props.usersPage.pageSize}
@@ -61,7 +60,7 @@ const Users = (props: UsersPropsType) => {
                 </div>
             )}
         </div>
-    );
-};
+    )
+}
 
 export default Users;

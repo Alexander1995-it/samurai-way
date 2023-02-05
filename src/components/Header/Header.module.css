@@ -1,8 +1,11 @@
 .header__block {
+    font-family: "'Playfair Display', serif";
     width: 100%;
-    background-color: cornflowerblue;
+    background-color: darkslateblue;
     border-bottom: 2px solid black;
     padding: 40px 0;
+    color: #c9c9d5;
+;
 }
 
 .header__wrapper {
@@ -11,33 +14,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
 .header__title {
-    color: brown;
     font-size: 35px;
-    font-family: "Noto Color Emoji";
-
 }
 
-
 .header__login {
-    color: brown;
     font-size: 25px;
-    font-family: "Noto Color Emoji";
 }
 
 .logout__block {
     display: flex;
     align-items: flex-end;
-
 }
 
 .logout__text {
-    color: brown;
     font-size: 25px;
-    font-family: "Noto Color Emoji";
     margin-right: 5px;
 }
 

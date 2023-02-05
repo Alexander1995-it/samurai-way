@@ -1,23 +1,23 @@
 .personalInformationBlock {
-    display: flex;
     margin-top: 15px;
 }
 
-.personalInformation div{
-    margin-bottom: 5px;
+.personalInformationBlock div{
+    display: flex;
+    margin-bottom: 7px;
 }
+.aboutMeBlock {}
 
-.labelInfo {
+.descriptionAJobBlock {}
+
+.textLabel {
+    width: 150px;
+    margin-right: 5px;
     font-weight: 600;
-    margin-right: 10px;
+
 }
 
-.aboutMeBlock span{
-   text-decoration: underline;
-    margin-right: 5px;
-}
-
-.descriptionAJobBlock span{
-    text-decoration: underline;
-    margin-right: 5px;
+.textInformation {
+    width: 350px;
+    font-size: 17px;
 }

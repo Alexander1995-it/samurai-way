@@ -1,29 +1,26 @@
 .navbar__block {
-
+    background-color: darkslateblue;
+    min-height: 100vh;
 }
 
 .navbar__content {
     padding: 10px 0;
-    height: 100vh;
-    background-color: cornflowerblue;
-
 }
 
 .navbar__text {
-    padding-left: 50px ;
-    padding-right: 50px ;
+    padding-left: 50px;
+    padding-right: 50px;
     font-size: 30px;
-    font-family: "Noto Color Emoji" ;
-    color: midnightblue;
+    font-family: "'Playfair Display', serif";
     margin-bottom: 10px;
-
+    color: #c9c9d5;
+;
 }
 
 
 .navbar__text:hover {
     cursor: pointer;
     background-color: olive;
-
 }
 
 .navbar__link {
