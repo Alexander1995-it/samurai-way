@@ -1,4 +1,4 @@
-export type StatusAppType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type StatusAppType = 'idle' | 'loading' | 'succeeded' | 'failed' | 'saveSucceeded'
 
 const initialState = {
     initialized: false,

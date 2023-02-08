@@ -5,9 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {ProfileType, updateInformationProfileTC} from "../../../redux/profileReducer";
 import {useFormik} from "formik";
 import {Button} from "@mui/material";
+import SuccessSnackbars from "../../../common/SuccessSnacbar";
 
 type ChangePersonalInformationType = {
     profile: ProfileType
+    setIsEditMode: (isEditMode: boolean) => void
 }
 
 const ChangePersonalInformation = (props: ChangePersonalInformationType) => {
@@ -31,7 +33,7 @@ const ChangePersonalInformation = (props: ChangePersonalInformationType) => {
             youtube: props.profile.contacts.youtube
 
         },
-        onSubmit: values => {
+        onSubmit: async (values) => {
             const model = {
                 fullName: values.fullName,
                 aboutMe: values.aboutMe,
@@ -49,100 +51,100 @@ const ChangePersonalInformation = (props: ChangePersonalInformationType) => {
                     youtube: values.youtube
                 },
             }
-            dispatch(updateInformationProfileTC(model))
-
+            await dispatch(updateInformationProfileTC(model))
         }
     })
 
     return (
         <form onSubmit={formik.handleSubmit} className={style.formPersonalInformatiom}>
-           <div className={style.InputBlock}>
-               <div>
-                   <TextField
-                       name='fullName'
-                       id='outlined-required'
-                       label='Name'
-                       value={formik.values.fullName}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-               <div>
-                   <TextField
-                       name='aboutMe'
-                       id='outlined-required'
-                       label='About me'
-                       value={formik.values.aboutMe}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-               <div>
-                   <TextField
-                       name='lookingForAJobDescription'
-                       id='outlined-required'
-                       label='Looking for a job description'
-                       value={formik.values.lookingForAJobDescription}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-               <div>
-                   <TextField
-                       id='outlined-required'
-                       label='Facebook'
-                       name='facebook'
-                       value={formik.values.facebook}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-               <div>
-                   <TextField
-                       id='outlined-required'
-                       label='Instagram'
-                       name='instagram'
-                       value={formik.values.instagram}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-               <div>
-                   <TextField
-                       id='outlined-required'
-                       label='VK'
-                       name='vk'
-                       value={formik.values.vk}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-               <div>
-                   <TextField
-                       id='outlined-required'
-                       label='Website'
-                       name='website'
-                       value={formik.values.website}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-               <div>
-                   <TextField
-                       id='outlined-required'
-                       label='Youtube'
-                       name='youtube'
-                       value={formik.values.youtube}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-               <div>
-                   <TextField
-                       id='outlined-required'
-                       label='Github'
-                       name='github'
-                       value={formik.values.github}
-                       onChange={formik.handleChange}
-                   />
-               </div>
-           </div>
+            <div className={style.InputBlock}>
+                <div>
+                    <TextField
+                        name='fullName'
+                        id='outlined-required'
+                        label='Name'
+                        value={formik.values.fullName}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        name='aboutMe'
+                        id='outlined-required'
+                        label='About me'
+                        value={formik.values.aboutMe}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        name='lookingForAJobDescription'
+                        id='outlined-required'
+                        label='Looking for a job description'
+                        value={formik.values.lookingForAJobDescription}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        id='outlined-required'
+                        label='Facebook'
+                        name='facebook'
+                        value={formik.values.facebook}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        id='outlined-required'
+                        label='Instagram'
+                        name='instagram'
+                        value={formik.values.instagram}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        id='outlined-required'
+                        label='VK'
+                        name='vk'
+                        value={formik.values.vk}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        id='outlined-required'
+                        label='Website'
+                        name='website'
+                        value={formik.values.website}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        id='outlined-required'
+                        label='Youtube'
+                        name='youtube'
+                        value={formik.values.youtube}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        id='outlined-required'
+                        label='Github'
+                        name='github'
+                        value={formik.values.github}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+            </div>
             <div className={style.buttonBlock}>
                 <Button variant="outlined" type="submit">Save</Button>
-                <Button variant="outlined">Cancel</Button>
+                <Button onClick={() => props.setIsEditMode(false)} variant="outlined">Cancel</Button>
             </div>
+            <SuccessSnackbars/>
         </form>
     )
 }

@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import Dialogs from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/Header";
@@ -12,6 +12,7 @@ import {setAuthMeTC} from "./redux/authReducer";
 import {CircularProgress} from "@mui/material";
 import {useAppSelector} from "./common/hooks/hooks";
 import CustomizedSnackbars from "./common/ErrorSnacbar";
+import SuccessSnackbars from "./common/SuccessSnacbar";
 
 function App() {
     const isInitialized = useAppSelector((state) => state.app.initialized)
@@ -28,7 +29,7 @@ function App() {
 
     return (
         <div className="App-wrapper">
-            <BrowserRouter>
+            <HashRouter>
                 <HeaderContainer/>
                 <div className='app-main__container'>
                     <CustomizedSnackbars/>
@@ -51,7 +52,7 @@ function App() {
                         }}/>
                     </Switch>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         </div>
 
     )

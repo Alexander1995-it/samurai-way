@@ -6,6 +6,7 @@ import {CircularProgress} from "@mui/material";
 import {StatusAppType} from "../../redux/appReducer";
 import ChangePersonalInformation from "./ChangePersonalInformation/ChangePersonalInformation";
 import Button from "@mui/material/Button";
+import SuccessSnackbars from "../../common/SuccessSnacbar";
 
 type ProfilePropsType = CommonProfileContainerPropsType & {
     statusApp: StatusAppType
@@ -24,15 +25,16 @@ const Profile = (props: ProfilePropsType) => {
     return (
         <div className={style.profile__block}>
             {isEditMode
-                ? <ChangePersonalInformation profile={props.profilePage.profile}/>
-
+                ? <ChangePersonalInformation setIsEditMode={setIsEditMode} profile={props.profilePage.profile}/>
                 : <MyProfileInfo updateStatusProfileTC={props.updateStatusProfileTC}
                                  profilePage={props.profilePage}
                 />
             }
-            <Button onClick={() => setIsEditMode(!isEditMode)} variant="outlined" size="small">
-                {isEditMode ? 'Back to profile' : 'Edit mode'}
-            </Button>
+           <div className={style.editModeButtonBlock}>
+               <Button onClick={() => setIsEditMode(!isEditMode)} variant="outlined" size="small">
+                   {isEditMode ? 'Back to profile' : 'Edit mode'}
+               </Button>
+           </div>
         </div>
     )
 }

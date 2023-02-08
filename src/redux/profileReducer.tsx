@@ -39,6 +39,9 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
         case 'SET_STATUS': {
             return {...state, status: action.status}
         }
+        case 'SET_PHOTO_PROFILE': {
+            return {...state, profile: {...state.profile, photos: action.photo}}
+        }
         default:
             return state
     }
@@ -49,14 +52,20 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
 export type ProfileReducerActionType =
     | SetUserProfileType
     | SetStatusUserInProfileType
+    | SetPhotoProfileType
 
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetStatusUserInProfileType = ReturnType<typeof setStatusUserInProfile>
+export type SetPhotoProfileType = ReturnType<typeof setPhotoProfile>
 
 //actions
 
 export const setUserProfile = (payload: any) => ({type: 'SET_USER_PROFILE', payload}) as const
 export const setStatusUserInProfile = (status: string) => ({type: 'SET_STATUS', status}) as const
+export const setPhotoProfile = (photo: { small: string, large: string }) => ({
+    type: 'SET_PHOTO_PROFILE',
+    photo
+} as const)
 
 //thunk
 
@@ -79,6 +88,7 @@ export const setStatusTC = (userId: number): AppThunk => (dispatch) => {
         })
 }
 
+
 export const updateStatusProfileTC = (status: string): AppThunk => (dispatch) => {
     profileAPI.updateStatus(status)
         .then(response => {
@@ -91,12 +101,20 @@ export const updateStatusProfileTC = (status: string): AppThunk => (dispatch) =>
 export const updateInformationProfileTC = (model: UpdateModelProfileType): AppThunk => async (dispatch) => {
     const response = await profileAPI.updatePersonalInformation(model)
     if (response.data.resultCode === 0) {
-        dispatch(setUserProfile (model))
+        dispatch(setUserProfile(model))
+        dispatch(setAppStatus('saveSucceeded'))
     } else {
         if (response.data.messages.length) {
             dispatch(setAppError(response.data.messages[0]))
         } else {
             dispatch(setAppError('Some error'))
         }
+    }
+}
+
+export const editProfileAvatarTC = (photo: any): AppThunk => async (dispatch) => {
+    const response = await profileAPI.updatePhoto(photo)
+    if (response.data.resultCode === 0) {
+        dispatch(setPhotoProfile(response.data.data.photos))
     }
 }

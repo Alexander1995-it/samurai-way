@@ -1,5 +1,4 @@
 import axios, {AxiosResponse} from "axios";
-import {ProfileType} from "../redux/profileReducer";
 
 
 const instance = axios.create({
@@ -33,8 +32,19 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put('profile/status', {status})
     },
-    updatePersonalInformation (model: UpdateModelProfileType) {
+    updatePersonalInformation(model: UpdateModelProfileType) {
         return instance.put<UpdateModelProfileType, AxiosResponse<ResponseType>>(`profile`, model)
+    },
+    updatePhoto(photoFile: any) {
+        let formData = new FormData();
+        formData.append('image', photoFile);
+
+        return instance.put('profile/photo', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+
     }
 }
 
@@ -67,18 +77,18 @@ export type LoginRequestType = {
 }
 
 export type UpdateModelProfileType = {
-        fullName: null | string
-        lookingForAJob: boolean,
-        lookingForAJobDescription: null | string,
-        userId: null | number,
-        contacts: {
-            facebook: null | string,
-            github: null | string,
-            instagram: null | string,
-            mainLink: null | string,
-            twitter: null | string,
-            vk: null | string,
-            website: null | string,
-            youtube: null | string
-        }
+    fullName: null | string
+    lookingForAJob: boolean,
+    lookingForAJobDescription: null | string,
+    userId: null | number,
+    contacts: {
+        facebook: null | string,
+        github: null | string,
+        instagram: null | string,
+        mainLink: null | string,
+        twitter: null | string,
+        vk: null | string,
+        website: null | string,
+        youtube: null | string
+    }
 }

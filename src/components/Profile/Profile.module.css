@@ -7,3 +7,7 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+
+.editModeButtonBlock {
+  width: 100px;
+}

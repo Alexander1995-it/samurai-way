@@ -1,25 +1,37 @@
-.profileInfo__block {
+.wrapperProfileInfo {
     display: flex;
 }
 
-.profileInfo__name {
-    margin-top: 10px;
-    font-weight: 600;
+.avaAndNameBlock {
+
+
 }
 
-.profileInfo__name__text {
+.nameBlock {
+    margin-top: 10px;
+    font-weight: 600;
     font-size: 25px;
     font-family: "'Playfair Display', serif";
 }
 
-.profileInfo__ava {
+.avaBlock {
     width: 250px;
     height: 320px;
     background-size: cover;
     background-position: center;
+    position: relative;
+}
+
+.avatarButton {
+    position: absolute;
+    bottom: -9px;
+    right: -40px;
 }
 
 .infoBlock {
-    margin-left: 15px;
+    margin-left: 50px;
+    max-width: 500px;
 }
+
+
 
