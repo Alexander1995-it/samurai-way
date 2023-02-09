@@ -5,7 +5,7 @@ import {getUsersTC} from "../../../redux/usersReducer";
 type UsersPaginationType = {
     totalCount: number
     pageSize: number
-    handlerCurrentPage: (page: number) => void
+    handlerCurrentPage: (page: number, seatchName: string) => void
     currentPage: number
 }
 
@@ -18,7 +18,7 @@ const UsersPagination = (props: UsersPaginationType) => {
     }
 
     const handlerPagination = (page: number) => {
-        props.handlerCurrentPage(page)
+        props.handlerCurrentPage(page, '')
     }
 
 

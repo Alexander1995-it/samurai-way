@@ -19,15 +19,14 @@ type UsersContainerPropsType = MapStateToPropsType & MapDispatchTyPropsType
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.usersPage.pageSize, this.props.usersPage.currentPage)
+        this.props.getUsersTC(this.props.usersPage.pageSize, this.props.usersPage.currentPage, '')
     }
 
-    onClickPage = (currentPage: number) => {
-        this.props.getUsersTC(this.props.usersPage.pageSize, currentPage)
+    onClickPage = (currentPage: number, searchName: string) => {
+        this.props.getUsersTC(this.props.usersPage.pageSize, currentPage, searchName)
     }
 
     render() {
-
         return <Users
             usersPage={this.props.usersPage}
             onClickPage={this.onClickPage}
@@ -56,7 +55,7 @@ type MapDispatchTyPropsType = {
     unfollow: (userId: number) => void
     setUsers: (data: UserType[]) => void
     addIdInFollowingProgress: (isFetching: boolean, userId: number) => void
-    getUsersTC: (pageSize: number, currentPage: number) => void
+    getUsersTC: (pageSize: number, currentPage: number, searchName: string) => void
     addFollowTC: (userId: number) => void
     addUnfollowTC: (userId: number) => void
 }
