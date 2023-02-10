@@ -7,6 +7,7 @@ import UsersPagination from "./Pagination/UsersPagination";
 import {CircularProgress, TextField} from "@mui/material";
 import {StatusAppType} from "../../redux/appReducer";
 import {useDebounce} from "../../common/hooks/hooks";
+import Button from "@mui/material/Button";
 
 
 type UsersPropsType = {
@@ -49,7 +50,8 @@ const Users = (props: UsersPropsType) => {
         <div className={style.usersPageBlock}>
             <div className={style.paginationAndSearchBlock}>
                 <div className={style.fieldSearch}>
-                    <TextField autoFocus={true} value={search} onChange={(e) => setSearch(e.currentTarget.value)} id="filled-basic"
+                    <TextField autoFocus={true} value={search} onChange={(e) => setSearch(e.currentTarget.value)}
+                               id="filled-basic"
                                label="Search" variant="filled"/>
                 </div>
                 <div>
@@ -60,24 +62,32 @@ const Users = (props: UsersPropsType) => {
                 </div>
             </div>
 
-            {props.usersPage.users.map(user => <div key={user.id}>
-                    <NavLink to={'/profile' + user.id}>
-                        <div>
-                            <img src={user.photos.large ? user.photos.large : NoAvatar}/>
+            {props.usersPage.users.map(user => {
+                    const ava = user.photos.large ? user.photos.large : NoAvatar
+                    return <div key={user.id}>
+                        <NavLink to={'/profile' + user.id}>
+                            <div style={{backgroundImage: `url(${ava})`}} className={style.photosBlock}>
+                            </div>
+                        </NavLink>
+                        <div className={style.nameUser}>
+                         {user.name}
                         </div>
-                    </NavLink>
-                    <div>
-                        <span>Name: </span><span>{user.name}</span>
+                        <div>
+                            {user.status && <div className={style.statusUser}>
+                                <span>Status: </span><span>{user.status}</span>
+                            </div>}
+                        </div>
+                        <div className={style.buttonBlockFollowAndUnfollow}>
+                            {user.followed
+                                ? <Button variant="outlined" size="small"
+                                          disabled={props.usersPage.followingInProgress.some(u => u === user.id)}
+                                          onClick={() => handlerUnfollow(user.id)}>Unfollow</Button>
+                                : <Button variant="outlined" size="small"
+                                          disabled={props.usersPage.followingInProgress.some(u => u === user.id)}
+                                          onClick={() => handlerFollow(user.id)}>Follow</Button>}
+                        </div>
                     </div>
-                    <div>
-                        <span>Status: </span><span>{user.status}</span>
-                    </div>
-                    {user.followed
-                        ? <button disabled={props.usersPage.followingInProgress.some(u => u === user.id)}
-                                  onClick={() => handlerUnfollow(user.id)}>Unfollow</button>
-                        : <button disabled={props.usersPage.followingInProgress.some(u => u === user.id)}
-                                  onClick={() => handlerFollow(user.id)}>Follow</button>}
-                </div>
+                }
             )}
         </div>
     )

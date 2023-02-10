@@ -8,3 +8,27 @@
 
 .paginationAndSearchBlock {
 }
+
+.photosBlock {
+    width: 100px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: inline-block;
+}
+
+.nameUser {
+    font-size: 18px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.statusUser {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.buttonBlockFollowAndUnfollow {
+    margin: 5px 0 20px 0;
+}
