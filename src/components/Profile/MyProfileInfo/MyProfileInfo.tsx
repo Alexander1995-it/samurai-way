@@ -14,6 +14,7 @@ import {useAppDispatch} from "../../../common/hooks/hooks";
 type MyProfileInfoPropsType = {
     profilePage: InitialStateProfileReducerType
     updateStatusProfileTC: (status: string) => void
+    params: string
 }
 const MyProfileInfo = (props: MyProfileInfoPropsType) => {
 
@@ -33,25 +34,24 @@ const MyProfileInfo = (props: MyProfileInfoPropsType) => {
         <div className={style.wrapperProfileInfo}>
             <div className={style.avaAndNameBlock}>
                 <div style={myImages} className={style.avaBlock}>
-                    <label className={style.avatarButton}>
+                    {!props.params && <label className={style.avatarButton}>
                         <input type="file"
-                            // onError={errorHandler}
                                onChange={uploadHandler}
                                style={{display: 'none'}}
                                accept='image/*'/>
                         <IconButton component="span">
                             <PartyModeIcon/>
                         </IconButton>
-                    </label>
+                    </label>}
                 </div>
-
                 <div className={style.nameBlock}>
                     {props.profilePage.profile.fullName}
                 </div>
             </div>
             <div className={style.infoBlock}>
-                <StatusProfile updateStatusProfileTC={props.updateStatusProfileTC}
+                <StatusProfile params={props.params} updateStatusProfileTC={props.updateStatusProfileTC}
                                status={props.profilePage.status}/>
+
                 <PersonalInformation profile={props.profilePage.profile}/>
             </div>
         </div>

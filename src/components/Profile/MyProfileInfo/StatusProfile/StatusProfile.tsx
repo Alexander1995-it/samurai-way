@@ -8,6 +8,7 @@ import iconStatus from '../../../../common/icon/forStatus.svg'
 export type StatusProfileType = {
     status: string
     updateStatusProfileTC: (status: string) => void
+    params: string
 }
 
 export const StatusProfile = (props: StatusProfileType) => {
@@ -36,24 +37,24 @@ export const StatusProfile = (props: StatusProfileType) => {
 
     return (
         <div className={style.status__block}>
-                <div className={style.status__label}><img src={iconStatus} width='35px' height='35px' alt=""/></div>
-                <div>
-                    {isEditMode
-                        ? <TextField id="standard-basic" variant="standard"
-                                     autoFocus={true} onBlur={() => editActiveHandler()}
-                                     value={localStatus} onChange={(e) => changeLocalState(e)}/>
-                        : <span className={style.status__text}>{props.status}</span>}
-                </div>
-                <div className={style.editStatus}>
-                    {isEditMode
-                        ? <IconButton sx={{color: 'black'}} component="span">
-                            <FileDownloadDoneIcon sx={{fontSize: '30px'}}/>
-                        </IconButton>
-                        : <IconButton onClick={() => editDeactiveHandler()} sx={{color: 'black'}} component="span">
-                            <EditIcon sx={{fontSize: '20px'}}/>
-                        </IconButton>
-                    }
-                </div>
+            <div className={style.status__label}><img src={iconStatus} width='35px' height='35px' alt=""/></div>
+            <div>
+                {isEditMode
+                    ? <TextField id="standard-basic" variant="standard"
+                                 autoFocus={true} onBlur={() => editActiveHandler()}
+                                 value={localStatus} onChange={(e) => changeLocalState(e)}/>
+                    : <span className={style.status__text}>{props.status}</span>}
+            </div>
+            <div className={style.editStatus}>
+                {isEditMode
+                    ? <IconButton sx={{color: 'black'}} component="span">
+                        <FileDownloadDoneIcon sx={{fontSize: '30px'}}/>
+                    </IconButton>
+                    : !props.params && <IconButton onClick={() => editDeactiveHandler()} sx={{color: 'black'}} component="span">
+                    <EditIcon sx={{fontSize: '20px'}}/>
+                </IconButton>
+                }
+            </div>
         </div>
     )
 }

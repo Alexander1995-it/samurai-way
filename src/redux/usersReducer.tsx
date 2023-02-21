@@ -82,6 +82,7 @@ export const addIdInFollowingProgress = (isFetching: boolean, userId: number) =>
 
 //thunks
 export const getUsersTC = (pageSize: number, currentPage: number = 1, searchName: string): AppThunk => async (dispatch) => {
+
     dispatch(setAppStatus('loading'))
     try {
         const response = await usersAPI.getUsers(pageSize, currentPage, searchName)
@@ -95,7 +96,6 @@ export const getUsersTC = (pageSize: number, currentPage: number = 1, searchName
     }
 
 }
-
 
 export const addFollowTC = (userId: number): AppThunk => (dispatch) => {
     dispatch(addIdInFollowingProgress(true, userId))

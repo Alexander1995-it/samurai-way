@@ -9,20 +9,23 @@ type PersonalInformation = {
 const PersonalInformation = (props: PersonalInformation) => {
     return (
         <div className={style.personalInformationBlock}>
-            <div className={style.aboutMeBlock}>
+            {props.profile.aboutMe && <div className={style.aboutMeBlock}>
                 <div className={style.textLabel}>About me:</div>
                 <div className={style.textInformation}>{props.profile.aboutMe}
                 </div>
-            </div>
-            <div className={style.descriptionAJobBlock}>
+            </div>}
+
+            {props.profile.lookingForAJobDescription && <div className={style.descriptionAJobBlock}>
                 <div className={style.textLabel}>Looking for a job:</div>
                 <div
                     className={style.textInformation}>{props.profile.lookingForAJob && props.profile.lookingForAJobDescription}</div>
-            </div>
-            <div>
-                <div className={style.textLabel}>VK:</div>
-                <div className={style.textInformation}>{props.profile.contacts.vk}</div>
-            </div>
+            </div>}
+
+            {props.profile.contacts.vk && <div>
+                    <div className={style.textLabel}>VK:</div>
+                    <div className={style.textInformation}>{props.profile.contacts.vk}</div>
+                </div>}
+
             {props.profile.contacts.facebook && <div>
                 <div className={style.textLabel}>Facebook:</div>
                 <div className={style.textInformation}>{props.profile.contacts.facebook}</div>
@@ -31,10 +34,10 @@ const PersonalInformation = (props: PersonalInformation) => {
                 <div className={style.textLabel}>Github:</div>
                 <div className={style.textInformation}> {props.profile.contacts.github}</div>
             </div>}
-            {props.profile.contacts.twitter  && <div>
+            {props.profile.contacts.twitter && <div>
                 <div className={style.textLabel}>Twitter:</div>
                 <div className={style.textInformation}> {props.profile.contacts.twitter}</div>
-                </div>}
+            </div>}
             {props.profile.contacts.youtube && <div>
                 <div className={style.textLabel}>Youtube:</div>
                 <div className={style.textInformation}> {props.profile.contacts.youtube}</div>

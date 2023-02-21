@@ -13,6 +13,7 @@ import {CircularProgress} from "@mui/material";
 import {useAppSelector} from "./common/hooks/hooks";
 import CustomizedSnackbars from "./common/ErrorSnacbar";
 import SuccessSnackbars from "./common/SuccessSnacbar";
+import Frends from "./components/Frends/Frends";
 
 function App() {
     const isInitialized = useAppSelector((state) => state.app.initialized)
@@ -42,6 +43,7 @@ function App() {
                                     <div className='app-main__content'>
                                         <Switch>
                                             <Route path='/profile:userId?' render={() => <ProfileContainer/>}/>
+                                            <Route path='/frends' render={() => <Frends/>}/>
                                             <Route path='/dialogs' render={() => <Dialogs/>}/>
                                             <Route path='/users' render={() => <UsersContainer/>}/>
                                             <Route path='/' render={() => <Redirect to='/profile'/>}/>
