@@ -12,6 +12,7 @@ import {
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import {StatusAppType} from "../../redux/appReducer";
+import {queryParamsModelType} from "../../api/api";
 
 
 type UsersContainerPropsType = MapStateToPropsType & MapDispatchTyPropsType
@@ -19,11 +20,11 @@ type UsersContainerPropsType = MapStateToPropsType & MapDispatchTyPropsType
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.usersPage.pageSize, this.props.usersPage.currentPage, '')
+        this.props.getUsersTC({pageSize: this.props.usersPage.pageSize, currentPage: this.props.usersPage.currentPage,searchName: ''})
     }
 
     onClickPage = (currentPage: number, searchName: string) => {
-        this.props.getUsersTC(this.props.usersPage.pageSize, currentPage, searchName)
+        this.props.getUsersTC({pageSize: this.props.usersPage.pageSize, currentPage, searchName})
     }
 
     render() {
@@ -55,7 +56,7 @@ type MapDispatchTyPropsType = {
     unfollow: (userId: number) => void
     setUsers: (data: UserType[]) => void
     addIdInFollowingProgress: (isFetching: boolean, userId: number) => void
-    getUsersTC: (pageSize: number, currentPage: number, searchName: string) => void
+    getUsersTC: (params: queryParamsModelType) => void
     addFollowTC: (userId: number) => void
     addUnfollowTC: (userId: number) => void
 }

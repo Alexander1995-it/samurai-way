@@ -10,9 +10,8 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers(pageSize: number, currentPage: number, searchName: string) {
-        // return instance.get('users', {pageSize, currentPage, searchName})
-        return instance.get(`users?count=${pageSize}&page=${currentPage}&term=${searchName}`)
+    getUsers(params: queryParamsModelType) {
+        return instance.get(`users?count=${params.pageSize}&page=${params.currentPage}&term=${params.searchName}`)
     },
     follow(userId: number) {
         return instance.post(`follow/${userId}`)
@@ -95,5 +94,8 @@ export type UpdateModelProfileType = {
 }
 
 export type queryParamsModelType = {
-    pageSize?: number | ''
+    pageSize?: number | null
+    currentPage?: number | null
+    searchName?: string | null
+
 }

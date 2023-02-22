@@ -6,7 +6,7 @@ type UsersPaginationType = {
     totalCount: number
     pageSize: number
     handlerCurrentPage: (page: number, seatchName: string) => void
-    currentPage: number
+    currentPage: number | undefined
 }
 
 const UsersPagination = (props: UsersPaginationType) => {
