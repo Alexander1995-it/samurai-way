@@ -11,7 +11,7 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(params: queryParamsModelType) {
-        return instance.get(`users?count=${params.pageSize}&page=${params.currentPage}&term=${params.searchName}`)
+        return instance.get(`users?count=${params.pageSize}&page=${params.currentPage}&term=${params.searchName}&friend=${null}`)
     },
     follow(userId: number) {
         return instance.post(`follow/${userId}`)
@@ -97,5 +97,6 @@ export type queryParamsModelType = {
     pageSize?: number | null
     currentPage?: number | null
     searchName?: string | null
+    friend?: boolean | null
 
 }

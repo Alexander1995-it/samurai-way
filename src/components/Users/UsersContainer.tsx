@@ -23,16 +23,16 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
         this.props.getUsersTC({pageSize: this.props.usersPage.pageSize, currentPage: this.props.usersPage.currentPage,searchName: ''})
     }
 
-    onClickPage = (currentPage: number, searchName: string) => {
-        this.props.getUsersTC({pageSize: this.props.usersPage.pageSize, currentPage, searchName})
-    }
+    // onClickPage = (currentPage: number, searchName: string) => {
+    //     this.props.getUsersTC({pageSize: this.props.usersPage.pageSize, currentPage, searchName})
+    // }
 
     render() {
         return <Users
             usersPage={this.props.usersPage}
-            onClickPage={this.onClickPage}
-            addFollowTC={this.props.addFollowTC}
-            addUnfollowTC={this.props.addUnfollowTC}
+            // onClickPage={this.onClickPage}
+            // addFollowTC={this.props.addFollowTC}
+            // addUnfollowTC={this.props.addUnfollowTC}
             statusApp={this.props.statusApp}
         />
     }
@@ -57,8 +57,8 @@ type MapDispatchTyPropsType = {
     setUsers: (data: UserType[]) => void
     addIdInFollowingProgress: (isFetching: boolean, userId: number) => void
     getUsersTC: (params: queryParamsModelType) => void
-    addFollowTC: (userId: number) => void
-    addUnfollowTC: (userId: number) => void
+    // addFollowTC: (userId: number) => void
+    // addUnfollowTC: (userId: number) => void
 }
 
 
@@ -70,7 +70,7 @@ export default connect(mapStateToProps, {
     setTotalCount,
     addIdInFollowingProgress,
     getUsersTC,
-    addFollowTC,
-    addUnfollowTC
+    // addFollowTC,
+    // addUnfollowTC
 })(UsersContainer)
 
