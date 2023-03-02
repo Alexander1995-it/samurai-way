@@ -10,11 +10,11 @@ const initialState = {
     users: [] as UserType[],
     totalCount: 120 as number,
     pageSize: 20 as number,
-    currentPage: 1 as number | undefined,
+    currentPage: 1 as number,
     followingInProgress: [] as Number[]
 }
 
-export const usersReducer = (state: InitialStateUsersReducerType = initialState, action: UsersReducerActionType) => {
+export const usersReducer = (state: InitialStateUsersReducerType = initialState, action: UsersReducerActionType):InitialStateUsersReducerType => {
     switch (action.type) {
         case 'FOLLOW':
             return {
@@ -65,7 +65,7 @@ type AddIdInFollowingProgressType = ReturnType<typeof addIdInFollowingProgress>
 export const follow = (userId: number) => ({type: 'FOLLOW', userId}) as const
 export const unfollow = (userId: number) => ({type: 'UNFOLLOW', userId}) as const
 export const setUsers = (data: UserType[]) => ({type: 'SET_USERS', data}) as const
-export const setCurrentPage = (currentPage: number | null | undefined) => ({type: 'SET_CURRENT_PAGE', currentPage}) as const
+export const setCurrentPage = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', currentPage}) as const
 export const setTotalCount = (totalCount: number) => ({type: 'SET_TOTAL_COUNT', totalCount}) as const
 export const addIdInFollowingProgress = (isFetching: boolean, userId: number) => ({
     type: 'ADD_ID_IN_FOLLOWING_PROGRESS',
@@ -80,7 +80,10 @@ export const getUsersTC = (queryParams:  queryParamsModelType): AppThunk => asyn
         const response = await usersAPI.getUsers(queryParams)
         dispatch(setUsers(response.data.items))
         dispatch(setTotalCount(response.data.totalCount))
-        dispatch(setCurrentPage(queryParams.currentPage))
+        if (queryParams.currentPage) {
+            dispatch(setCurrentPage(queryParams.currentPage))
+        }
+
     } catch (e) {
 
     } finally {

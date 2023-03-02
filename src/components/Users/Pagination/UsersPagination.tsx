@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Pagination from "@mui/material/Pagination";
-import {getUsersTC} from "../../../redux/usersReducer";
 
 type UsersPaginationType = {
     totalCount: number
     pageSize: number
     handlerCurrentPage: (page: number, seatchName: string) => void
-    currentPage: number | undefined
+    currentPage: number
+    search: string
 }
 
 const UsersPagination = (props: UsersPaginationType) => {
@@ -18,9 +18,8 @@ const UsersPagination = (props: UsersPaginationType) => {
     }
 
     const handlerPagination = (page: number) => {
-        props.handlerCurrentPage(page, '')
+        props.handlerCurrentPage(page, props.search)
     }
-
 
     return (
         <div style={{margin: '10px'}}>

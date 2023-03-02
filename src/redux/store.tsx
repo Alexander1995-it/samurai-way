@@ -1,12 +1,10 @@
-import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {profileReducer, ProfileReducerActionType} from "./profileReducer";
 import {usersReducer, UsersReducerActionType} from "./usersReducer";
 import {authReducer, AuthReducerActionType} from "./authReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk"
 import {appReducer, ActionsAppReducerType} from "./appReducer";
 
-
-export type AppRootStateType = ReturnType<typeof rootReducer>
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -22,6 +20,8 @@ export type AppActionsType =
     | AuthReducerActionType
     | UsersReducerActionType
     | ActionsAppReducerType
+
+export type AppRootStateType = ReturnType<typeof store.getState>
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>

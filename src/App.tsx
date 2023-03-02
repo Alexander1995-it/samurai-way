@@ -4,16 +4,15 @@ import Navbar from "./components/Navbar/Navbar";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/Header";
 import LoginContainer from "./components/Login/LoginContainer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setAuthMeTC} from "./redux/authReducer";
 import {CircularProgress} from "@mui/material";
 import {useAppSelector} from "./common/hooks/hooks";
 import CustomizedSnackbars from "./common/ErrorSnacbar";
-import SuccessSnackbars from "./common/SuccessSnacbar";
-import Frends from "./components/Frends/Frends";
+import {UsersContainer} from "./components/Users/UsersContainer";
+import {Friends} from "./components/Frends/Friends";
 
 function App() {
     const isInitialized = useAppSelector((state) => state.app.initialized)
@@ -43,7 +42,7 @@ function App() {
                                     <div className='app-main__content'>
                                         <Switch>
                                             <Route path='/profile:userId?' render={() => <ProfileContainer/>}/>
-                                            <Route path='/frends' render={() => <Frends/>}/>
+                                            <Route path='/friends' render={() => <Friends/>}/>
                                             <Route path='/dialogs' render={() => <Dialogs/>}/>
                                             <Route path='/users' render={() => <UsersContainer/>}/>
                                             <Route path='/' render={() => <Redirect to='/profile'/>}/>

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import style from "./Users.module.css";
 import NoAvatar from "../../images/NoAvatar.png";
-import {getUsersTC, InitialStateUsersReducerType} from "../../redux/usersReducer";
-import {NavLink, useHistory, useParams} from "react-router-dom";
+import {addFollowTC, addUnfollowTC, getUsersTC, InitialStateUsersReducerType} from "../../redux/usersReducer";
+import {NavLink} from "react-router-dom";
 import UsersPagination from "./Pagination/UsersPagination";
 import {CircularProgress, TextField} from "@mui/material";
 import {StatusAppType} from "../../redux/appReducer";
@@ -12,41 +12,42 @@ import Button from "@mui/material/Button";
 
 type UsersPropsType = {
     usersPage: InitialStateUsersReducerType
-    // onClickPage: (currentPage: number, searchName: string) => void
-    // addFollowTC: (userId: number) => void
-    // addUnfollowTC: (userId: number) => void
     statusApp: StatusAppType
+    isFriends?: true
 }
 
 const Users = (props: UsersPropsType) => {
 
     const dispatch = useAppDispatch()
     const [search, setSearch] = useState('')
-    const history = useHistory()
+    // const history = useHistory()
     const debouncedValue = useDebounce<string>(search, 700)
 
     useEffect(() => {
+        dispatch(getUsersTC({
+            pageSize: props.usersPage.pageSize,
+            currentPage: 1,
+            searchName: search,
+            friend: props.isFriends
+        }))
         // props.onClickPage(1, search)
-        history.push({
-            pathname: '/users',
-            search: `?term=${search}`
-        })
+        // history.push({
+        //     pathname: '/users',
+        //     search: `?term=${search}`
+        // })
     }, [debouncedValue])
 
     const onClickPage = (currentPage: number, searchName: string) => {
-        dispatch(getUsersTC ({pageSize: props.usersPage.pageSize, currentPage, searchName}))
+        dispatch(getUsersTC({pageSize: props.usersPage.pageSize, currentPage, searchName, friend: props.isFriends}))
     }
 
-    // onClickPage = (currentPage: number, searchName: string) => {
-    //     this.props.getUsersTC({pageSize: this.props.usersPage.pageSize, currentPage, searchName})
-    // }
 
     const handlerFollow = (userId: number) => {
-        // props.addFollowTC(userId)
+        dispatch(addFollowTC(userId))
     }
 
     const handlerUnfollow = (userId: number) => {
-        // props.addUnfollowTC(userId)
+        dispatch(addUnfollowTC(userId))
     }
 
     if (props.statusApp === 'loading') {
@@ -67,7 +68,8 @@ const Users = (props: UsersPropsType) => {
                     <UsersPagination totalCount={props.usersPage.totalCount}
                                      pageSize={props.usersPage.pageSize}
                                      currentPage={props.usersPage.currentPage}
-                                     handlerCurrentPage={onClickPage}/>
+                                     handlerCurrentPage={onClickPage}
+                                     search={search}/>
                 </div>
             </div>
 
@@ -79,7 +81,7 @@ const Users = (props: UsersPropsType) => {
                             </div>
                         </NavLink>
                         <div className={style.nameUser}>
-                         {user.name}
+                            {user.name}
                         </div>
                         <div>
                             {user.status && <div className={style.statusUser}>
